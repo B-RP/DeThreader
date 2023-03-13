@@ -1,24 +1,22 @@
 import './App.css';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
-const TextButton = (props) => {
-  return(
-  <button onClick={props.action} className="textButton">{props.text}</button>
-  )
-}
+import Home from "./Pages/Home"
+import SignUp from "./Pages/SignUp"
+import LogIn from "./Pages/LogIn"
+import About from "./Pages/About"
+
+
 const App = () => {
   return (
-    <div className="Background">
-      <div className="MainCenterContainer">
-        <>
-        <div><span className="titleDE">[DE]</span><span className="titleTHREADER">THREADER</span></div>
-
-        <TextButton text={'Sign Up'} />
-        <TextButton text={'Log In'} />
-        <TextButton text={'Continue as Guest'} />
-        <TextButton text={'About Us'} />
-        </>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/signup" element={<SignUp />}/>
+        <Route path="/login" element={<LogIn />}/>
+        <Route path="/about" element={<About />}/>
+      </Routes>
+    </Router>
   );
 }
 
