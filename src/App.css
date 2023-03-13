@@ -1,3 +1,108 @@
+/*----CONTAINERS----*/
+.Background {
+  background-color: #101010;
+  height: 100vh;
+
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.MainCenterContainer{
+  padding: 2% 10% 2% 10%;
+  border: solid #A1CCA5;
+
+  text-align: center;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.MainCenterContainer:before {
+  position:absolute;
+  top:-10px;
+  left:15%;
+  content:"";
+  display:block;
+  height:20px;
+  width:70%;
+  background:#101010;
+}
+.MainCenterContainer:after {
+  position:absolute;
+  bottom:-10px;
+  left:15%;
+  content:"";
+  display:block;
+  height:20px;
+  width:70%;
+  background:#101010;
+}
+
+/*----COMPONENTS----*/
+.textButton{
+  color: white;
+  background: transparent;
+  border: none;
+  margin: 10px auto 0;
+  display: block;
+  font-size: 15px;
+  font-family: 'Playfair Display', serif;;
+  outline: none;
+
+  position: relative;
+  transition: 0.3s;
+  padding: 5px;
+}
+.textButton::before{
+  content: '';
+  border-bottom: 1px solid white;
+  padding: 0 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  transition: 0.3s;
+}
+.textButton:hover::before
+{
+  width: 100%;
+  padding: 0;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+.titleDE
+{
+  font-family: 'Playfair Display', serif;
+  color: white;
+  font-size: 30pt;
+}
+.titleTHREADER
+{
+  font-family: 'Playfair Display', serif;
+  color: #A1CCA5;
+  font-size: 30pt;
+}
+
+
+
+h1{
+  font-family: 'Playfair Display', serif;
+  color: white;
+}
+p{
+  color: white;
+}
+
+
+
+/*---------------------------------*/
 .App {
   text-align: center;
 }
@@ -28,11 +133,20 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes MainCenterContainer-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes MainCenterContainer-expand {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(1.5);
   }
 }

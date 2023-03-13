@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const TextButton = (props) => {
+  return(
+  <button onClick={props.action} className="textButton">{props.text}</button>
+  )
+}
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="Background">
+      <div className="MainCenterContainer">
+        <>
+        <div><span className="titleDE">[DE]</span><span className="titleTHREADER">THREADER</span></div>
+
+        <TextButton text={'Sign Up'} />
+        <TextButton text={'Log In'} />
+        <TextButton text={'Continue as Guest'} />
+        <TextButton text={'About Us'} />
+        </>
+      </div>
     </div>
   );
 }
