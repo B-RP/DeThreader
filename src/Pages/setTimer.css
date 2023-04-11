@@ -1,0 +1,135 @@
+* {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.timer-container > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem;
+}
+
+.timer-container p {
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  font-weight: 400;
+  color: rgb(203, 203, 203);
+}
+
+.timer-container h1 {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.timer-container button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* .work button,
+.rest button,
+.long-rest button,
+.long-break button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+} */
+
+.timer-container .minutes button:first-child {
+  margin-right: 0.5rem;
+}
+
+.timer-container .minutes button:last-child {
+  margin-left: 0.5rem;
+}
+
+.timer-container .seconds button:first-child {
+  margin-right: 0.25rem;
+}
+
+.timer-container .seconds button:last-child {
+  margin-left: 0.25rem;
+}
+
+.timer-container .buttons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+}
+
+.timer-container .buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 0.25rem 0;
+}
+
+.timer-container .buttons button:first-child {
+  margin-top: 0;
+}
+
+.timer-container .buttons button:last-child {
+  margin-bottom: 0;
+}
+
+.times {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.timer-container .work,
+.timer-container .rest,
+.timer-container .long-rest {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-container .long-rest {
+  display: none;
+}
+
+.timer-container .long-break {
+  margin: 1rem;
+}
+
+@media (min-width: 768px) {
+  .timer-container {
+    flex-direction: row;
+  }
+
+  .timer-container > div {
+    margin: 1rem 2rem;
+  }
+
+  .timer-container .long-rest {
+    display: flex;
+  }
+
+  .timer-container .work,
+  .timer-container .rest,
+  .timer-container .long-rest,
+  .timer-container .long-break {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.next-btn {
+    position: absolute;
+    bottom: 150px;
+    left: auto;
+    right: auto;
+}

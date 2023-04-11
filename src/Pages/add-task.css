@@ -1,0 +1,54 @@
+
+.createTasksContainer button{
+    background-color: transparent;
+    border: none;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+ul button {
+    background-color: transparent;
+    border: none;
+}
+
+
+.addContainer button {
+    margin-left: 10px;
+}
+
+.checkboxContainer {
+    margin-right: 8px;
+}
+
+.checked {
+  color: #0dee0d;
+  text-decoration: line-through;
+}
+
+.text-field {
+    /* width: auto;
+    max-width: 100%;  */
+    width: auto;
+  max-width: 100%;
+  overflow: visible;
+  border: 1px solid gray;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 5px;
+  stroke: none;
+}
+
+.texts {
+    border: none;
+}
+
+.texts:focus {
+    border: none;
+}

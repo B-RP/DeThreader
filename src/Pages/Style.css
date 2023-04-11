@@ -176,3 +176,24 @@ input:focus {
     font-size: medium;
     font-family: 'Playfair Display', serif;
   }
+
+.outer-class {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.inner-class {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.go-btn {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background-color: transparent;
+  color: white;
+  z-index: 10;
+}
