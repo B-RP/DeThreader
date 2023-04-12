@@ -31,7 +31,7 @@ const Dashboard = () => {
             <button onClick={() => {}} className="iconButton">
               <FontAwesomeIcon icon={faGear} size={"2xl"} className="fa-Icon" />
             </button>
-            {/* Added by Usama
+            {/* Added by Lis
              *conditionally render the button, show only if logged in
              */}
             { user ? (

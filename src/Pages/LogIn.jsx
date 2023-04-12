@@ -22,7 +22,7 @@ const LogIn = (props) => {
   const navigate = useNavigate();
 
  /**
-   * Added by Usama
+   * Added
    * save the input vals in state object to use it in authentication
  */
 let [userData, setUserData] = useState({
@@ -37,7 +37,7 @@ const fieldHandler = (e) => {
     setUserData({...userData, [name]:val});
   }
   /**
-   * Added by Usama
+   * Added
    * Authentication process, 
    * copy this code from firebase at:
    * https://console.firebase.google.com/u/1/project/threader-app-8163c/settings/general/web:M2JjMGUwYTktYjA3YS00YmRiLWI1OTUtMDFiOGEwNjIwOWUx

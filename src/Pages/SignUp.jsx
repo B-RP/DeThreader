@@ -14,7 +14,7 @@ import { UserName } from './Helper/Context';
 const SignUp = () => {
   const {userName, setUserName} = useContext(UserName);
   /**
-   * Added by Usama
+   * Added
    * create states to save input values
    */
 
@@ -26,7 +26,7 @@ const SignUp = () => {
     confPass: "",
   });
   /**
-   * Added by Usama
+   * Added
    * check for Fields validation then
    * connect to Firebase and updat database with new users
    */
@@ -86,7 +86,7 @@ const SignUp = () => {
   };
 
   /**
-   * Added by Usama
+   * Added by Lis
    */
   let name, value;
   const fieldsValues = (e) => {

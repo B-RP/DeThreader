@@ -54,11 +54,11 @@ const App = () => {
 
     return unsubscribe;
   }, []);
-  // Added By Usama
+  // Added
   const [userName, setUserName] = useState(null); //create state to pass through context
   const [isLoggedIn, setIsLoggedIn] = useState(false); //create state to pass through context
   return (
-    // the Way of using context (added by Usama)
+    // the Way of using context (added by Lis)
     <UserName.Provider value={{ userName, setUserName }}>
       <LoggedIn.Provider value={{ isLoggedIn, setIsLoggedIn }}>
         <MySessionProvider>

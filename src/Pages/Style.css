@@ -1,67 +1,165 @@
 .Background {
   
-    height: 100vh;
-  
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-  }
-  
+  height: 100vh;
+
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
 .MainCenterContainer{
-  padding: 2% 10% 2% 10%;
-    border: solid #A1CCA5;
-  
-    text-align: center;
-    position: relative;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    z-index: 1;
-  }
-  
-  .MainCenterContainer:before {
-    position:absolute;
-    top:-10px;
-    left:15%;
-    content:"";
-    display:block;
-    height:20px;
-    width:70%;
-    background:#101010;
-    z-index: 1;
-  }
-  .MainCenterContainer:after {
-    position:absolute;
-    bottom:-10px;
-    left:15%;
-    content:"";
-    display:block;
-    height:20px;
-    width:70%;
-    background:#101010;
-    z-index: 1;
-  }
+padding: 2% 10% 2% 10%;
+  border: solid #A1CCA5;
+
+  text-align: center;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  z-index: 1;
+}
+
+.MainCenterContainer:before {
+  position:absolute;
+  top:-10px;
+  left:15%;
+  content:"";
+  display:block;
+  height:20px;
+  width:70%;
+  background:#101010;
+  z-index: 1;
+}
+.MainCenterContainer:after {
+  position:absolute;
+  bottom:-10px;
+  left:15%;
+  content:"";
+  display:block;
+  height:20px;
+  width:70%;
+  background:#101010;
+  z-index: 1;
+}
 
 /*-------------COMPONENTS-------------------*/
 
 /*FROMS*/
 
 .form{
-  background-color: #101010;
-  border-radius: 5px;
+background-color: #101010;
+border-radius: 5px;
 }
 
 .form-body{
-    text-align: center;
-    color: white;
-    padding: 5px 5px;
+  text-align: center;
+  color: white;
+  padding: 5px 5px;
 }
 
 input{
+border: none;
+border-bottom: 2px solid white;
+background-color: #101010;
+color: white;
+outline: none;
+font-size: medium;
+font-family: 'Playfair Display', serif;
+}
+
+input:focus {
+border: none;
+border-bottom: 2px solid #A1CCA5;
+background-color: #101010;
+
+}
+
+/* TEXT BUTTONS */
+.textButton{
+  color: white;
+  background: transparent;
   border: none;
-  border-bottom: 2px solid white;
+  margin: 10px auto 0;
+  display: block;
+  font-size: 15px;
+  font-family: 'Playfair Display', serif;
+  outline: none;
+
+  position: relative;
+  transition: 0.3s;
+  padding: 5px;
+}
+.textButton::before{
+  content: '';
+  border-bottom: 1px solid white;
+  padding: 0 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 0;
+  transition: 0.3s;
+}
+.textButton:hover::before
+{
+  width: 100%;
+  padding: 0;
+
+}
+
+/* ICON BUTTONS */
+
+.iconButton{
+  background: transparent;
+  border: none;
+
+}
+.fa-Icon{
+  color: white;
+}
+.fa-Icon:hover {
+  color: #A1CCA5;
+}
+.iconContainer
+{
+  display: flex;
+  justify-content: space-between;
+  padding: 10%;
+}
+.messageContainer
+{
+  padding: 5%;
+}
+
+.white
+{
+font-family: 'Playfair Display', serif;
+color: white;
+font-size: 15pt;
+}
+.green
+{
+font-family: 'Playfair Display', serif;
+color: #A1CCA5;
+font-size: 15pt;
+}
+/*Session builders*/
+
+.createClassContainer{
+  align-items: flex-start;
+}
+
+.taskSpan
+{
+  vertical-align:top;
+}
+
+.taskInput
+{
+  border: none;
   background-color: #101010;
   color: white;
   outline: none;
@@ -69,131 +167,33 @@ input{
   font-family: 'Playfair Display', serif;
 }
 
-input:focus {
+.taskInput:focus
+{
   border: none;
-  border-bottom: 2px solid #A1CCA5;
   background-color: #101010;
-
-}
-
-/* TEXT BUTTONS */
-.textButton{
-    color: white;
-    background: transparent;
-    border: none;
-    margin: 10px auto 0;
-    display: block;
-    font-size: 15px;
-    font-family: 'Playfair Display', serif;
-    outline: none;
-  
-    position: relative;
-    transition: 0.3s;
-    padding: 5px;
-  }
-  .textButton::before{
-    content: '';
-    border-bottom: 1px solid white;
-    padding: 0 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 0;
-    transition: 0.3s;
-  }
-  .textButton:hover::before
-  {
-    width: 100%;
-    padding: 0;
-  
-  }
-
-  /* ICON BUTTONS */
-
-  .iconButton{
-    background: transparent;
-    border: none;
-
-  }
-  .fa-Icon{
-    color: white;
-  }
-  .fa-Icon:hover {
-    color: #A1CCA5;
-  }
-  .iconContainer
-  {
-    display: flex;
-    justify-content: space-between;
-    padding: 10%;
-  }
-  .messageContainer
-  {
-    padding: 5%;
-  }
-
-.white
-{
-  font-family: 'Playfair Display', serif;
   color: white;
-  font-size: 15pt;
-}
-.green
-{
+  outline: none;
+  font-size: medium;
   font-family: 'Playfair Display', serif;
-  color: #A1CCA5;
-  font-size: 15pt;
 }
-  /*Session builders*/
-
-  .createClassContainer{
-    align-items: flex-start;
-  }
-
-  .taskSpan
-  {
-    vertical-align:top;
-  }
-
-  .taskInput
-  {
-    border: none;
-    background-color: #101010;
-    color: white;
-    outline: none;
-    font-size: medium;
-    font-family: 'Playfair Display', serif;
-  }
-
-  .taskInput:focus
-  {
-    border: none;
-    background-color: #101010;
-    color: white;
-    outline: none;
-    font-size: medium;
-    font-family: 'Playfair Display', serif;
-  }
 
 .outer-class {
-  display: block;
-  margin-bottom: 10px;
+display: block;
+margin-bottom: 10px;
 }
 
 .inner-class {
-  display: inline-block;
-  margin-right: 10px;
+display: inline-block;
+margin-right: 10px;
 }
 
 .go-btn {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: none;
-  background-color: transparent;
-  color: white;
-  z-index: 10;
+position: absolute;
+bottom: 50px;
+left: 50%;
+transform: translateX(-50%);
+border: none;
+background-color: transparent;
+color: white;
+z-index: 10;
 }

@@ -20,7 +20,7 @@ const Home = () => {
         <TextButton action={()=> {navigate("/LogIn")}} text={'Log In'} />
         <TextButton action={()=> {navigate("/dashboard")}} text={'Continue as Guest'} />
         <TextButton action={()=> {navigate("/about")}} text={'About Us'} />
-        {/* Added By Usama */}
+        {/* Added */}
         
         </>
       </div>
