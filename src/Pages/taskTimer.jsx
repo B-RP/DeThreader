@@ -1,46 +1,144 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import Timer from "./timer";
 import Popup from "./popup";
-import "./taskTimer.css"
+import "./taskTimer.css";
+import LabelTree from "./labelTree";
+import { Sessions } from "./Helper/Context";
+import relax from "../assets/relax.mp3";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import logo from "../assets/logo.png"
 
 function TaskTimer(props) {
-  // define the state variables
-  const { // these are the timer's state variables passed down from "setTimer.jsx"
+  const {
     workCountdownTime,
+    setWorkCountdownTime,
     restCountdownTime,
     longRestCountdownTime,
     sessions,
+    user,
   } = props;
-  const [time, setTime] = useState(workCountdownTime); // set initial time for count down
-  const [showPopup, setShowPopup] = useState(false); // to render Popup conditionally
+  const [time, setTime] = useState(workCountdownTime);
+  const [showPopup, setShowPopup] = useState(false);
+  const [currentSession, setCurrentSession] = useState(1);
+  const [playAudio, setPlayAudio] = useState(false);
+  const { sessionsLength } = useContext(Sessions);
+  const myAudio = useRef(null);
 
-  // Impliemnt the logic for the count-down Timer
-  // useEffect hook accepts a callback function which impliment the logic, and an array of dependencies which cause it to trigger whenever they change, in this case dependencies are empty, so it will be triggered on pageload
-useEffect(() => {
+  const initialWorkCountdownTime = useRef(workCountdownTime);
+
+  const startCountdownTimer = useCallback(() => {
     const intervalId = setInterval(() => {
       setTime((prevTime) => {
-        if (prevTime > 0) { // this condition is to make sure that the counter don't count negative values afther reaching 0
+        if (prevTime > 0) {
           return prevTime - 1;
         } else {
-          clearInterval(intervalId); // stop the timer 
-          setShowPopup(true); // set showPopup to true when time reaches 0
-          return 0;
+          clearInterval(intervalId);
+          if (currentSession <= sessionsLength) {
+            setShowPopup(true);
+            setCurrentSession((prevSession) => prevSession + 1);
+            setTime(initialWorkCountdownTime.current);
+            setPlayAudio(false);
+          } else {
+            if (currentSession > sessionsLength) {
+              setTime(initialWorkCountdownTime.current);
+            }
+          }
         }
       });
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, []);
-  
+  }, [currentSession, sessionsLength, initialWorkCountdownTime]);
+
+  useEffect(() => {
+    if (playAudio) {
+      myAudio.current.play();
+    } else {
+      myAudio.current.pause();
+    }
+  }, [playAudio]);
+
+  useEffect(() => {
+    if (!showPopup) {
+      startCountdownTimer();
+    }
+  }, [showPopup, startCountdownTimer]);
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    setPlayAudio(true);
+    setCurrentSession((prevSession) => prevSession + 1);
+    if (currentSession <= sessionsLength) {
+      initialWorkCountdownTime.current =
+        currentSession % sessions.longRest === 0
+          ? longRestCountdownTime
+          : restCountdownTime;
+      setTime(initialWorkCountdownTime.current);
+      // setWorkCountdownTime(initialWorkCountdownTime.current);
+    } else {
+      setTime(workCountdownTime);
+    }
+  };
+
   return (
     <>
-      <div className="wor-timer">
-        <Timer startTime={time} />
+      <div className="main-div">
+        <div className="headd">
+          <p>
+            <span style={{ color: "#ffffff" }}>DE</span>THREADER
+          </p>
+        </div>
+        <div className="wor-timer">
+          <h1>
+            <Timer startTime={time} />
+          </h1>
+        <h1 className="tsk" style={{color: "#A1CCA5"}}>TASKS</h1>
+        </div>
+        {showPopup && (
+          <Popup
+            handlePopupClose={handlePopupClose}
+            restCountdownTime={restCountdownTime}
+            longRestCountdownTime={longRestCountdownTime}
+            sessions={sessions}
+            showPopup={showPopup}
+            setShowPopup={setShowPopup}
+            currentSession={currentSession}
+            setCurrentSession={setCurrentSession}
+            workCountdownTime={workCountdownTime}
+            setWorkCountdownTime={setWorkCountdownTime}
+            audioRef={myAudio}
+          />
+        )}
+        <div className="tasks">
+          <h5>
+            <LabelTree user={user} />
+          </h5>
+        </div>
+        <div className="play">
+          <button onClick={() => setPlayAudio(!playAudio)}>
+            {playAudio ? (
+              <span>
+                <FontAwesomeIcon icon={faPause} /> Pause
+              </span>
+            ) : (
+              <span>
+                <FontAwesomeIcon icon={faPlay} /> Play
+              </span>
+            )}
+          </button>
+          <audio src={relax} ref={myAudio}></audio>
+        </div>
+        <div className="logo">
+          <img src={logo} alt="logo" />
+        </div>
       </div>
-      {/* Conditional rendering of Popup component based on the value of `showPopup` */}
-      {showPopup && <Popup restCountdownTime={restCountdownTime} longRestCountdownTime={longRestCountdownTime} />}
-
     </>
   );
 }

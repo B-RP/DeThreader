@@ -16,13 +16,13 @@ const TextButton = (props) => {
   )
 }
 
-const LogIn = () => {
+const LogIn = (props) => {
   const {isLoggedIn, setIsLoggedIn} = useContext(LoggedIn); // determine if the user is logged in or not
   const {userName, setUserName} = useContext(UserName);
   const navigate = useNavigate();
 
  /**
-   * Added by Lis
+   * Added by Usama
    * save the input vals in state object to use it in authentication
  */
 let [userData, setUserData] = useState({
@@ -37,7 +37,7 @@ const fieldHandler = (e) => {
     setUserData({...userData, [name]:val});
   }
   /**
-   * Dina: Database
+   * Added by Usama
    * Authentication process, 
    * copy this code from firebase at:
    * https://console.firebase.google.com/u/1/project/threader-app-8163c/settings/general/web:M2JjMGUwYTktYjA3YS00YmRiLWI1OTUtMDFiOGEwNjIwOWUx
@@ -51,6 +51,7 @@ const fieldHandler = (e) => {
       .then((userCredential) => {
         // User signed in
         const user = userCredential.user;
+        props.setUser(user);
         // Do something with the user object
         console.log({user});
         // alert('success login!');
@@ -126,7 +127,7 @@ const fieldHandler = (e) => {
           </form>
           <TextButton action={()=> {
           const provider = new GoogleAuthProvider();
-          // Grabbed this code from Firebase documentation
+          //Just grab this code from Firebase documentation
           const auth = getAuth();
           signInWithPopup(auth, provider)
             .then((result) => {
@@ -143,11 +144,11 @@ const fieldHandler = (e) => {
                 email: user.email,
                 name: user.displayName,
                 from: 'Google'
-                // Add more user data here if needed
+                // add more user data here if you want
               });
               navigate("/dashboard");
             }).catch((error) => {
-              // Handle Errors
+              // Handle Errors here.
               const errorCode = error.code;
               const credential = GoogleAuthProvider.credentialFromError(error);
               setIsLoggedIn(false);

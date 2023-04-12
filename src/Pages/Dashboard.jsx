@@ -31,8 +31,8 @@ const Dashboard = () => {
             <button onClick={() => {}} className="iconButton">
               <FontAwesomeIcon icon={faGear} size={"2xl"} className="fa-Icon" />
             </button>
-            {/* Added by Lis
-             * Conditionally render the button, show only if logged in
+            {/* Added by Usama
+             *conditionally render the button, show only if logged in
              */}
             { user ? (
               <button onClick={() => {}} className="iconButton">
@@ -63,7 +63,9 @@ const Dashboard = () => {
               <FontAwesomeIcon icon={faPlus} size={"2xl"} className="fa-Icon" />
             </button>
 
-            <button onClick={() => {}} className="iconButton">
+            <button onClick={() => {
+              navigate("/taskTimer")
+            }} className="iconButton">
               <FontAwesomeIcon icon={faPlay} size={"2xl"} className="fa-Icon" />
             </button>
           </div>

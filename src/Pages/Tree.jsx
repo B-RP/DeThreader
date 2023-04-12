@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+//const tree = ({}) => {}
 const Tree = ({
   data,
   handleAddField,
@@ -27,7 +27,9 @@ const Tree = ({
           <div className="text-field">
             <input
               type="text"
-              className={`texts ${checkedMap[node.id] || node.checked ? "checked" : ""}`}
+              className={`texts ${
+                checkedMap[node.id] || node.checked ? "checked" : ""
+              }`}
               value={node.label}
               onChange={(e) => handleChange(node.id, e)}
             />

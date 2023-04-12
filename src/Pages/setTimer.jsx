@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "./setTimer.css";
 import { useNavigate } from "react-router-dom";
+import { Sessions } from "./Helper/Context";
 
 function SetTimer(props) {
   // Set A different state for different counters eg. wor, rest, log rest, sessions
   const [workCountdownTime, setWorkCountdownTime] = useState(60); // 25 minutes in seconds
   const [restCountdownTime, setrestCountdownTime] = useState(60); // 5 minutes in seconds
   const [longRestCountdownTime, setlongRestkCountdownTime] = useState(60); // 20 minutes in seconds
-  const [sessions, setSessions] = useState(4);
+  const [sessions, setSessions] = useState(0);
     const navigate = useNavigate(); // to be able to navigate to other screen
-
+  const { sessionsLength } = useContext(Sessions);
   // const startCountdown = () => {
   //   setTimeout(() => {
   //     setWorkCountdownTime(workCountdownTime - 1);
@@ -27,9 +28,9 @@ function SetTimer(props) {
   // };
 
   // the coming functions take 2 parameteres, counters and their setters, and change the timesers' value on clicking
-  // this is better than making separate functions for each timer
+  // this is better that making separate functions for each timer
   const increaseMinutes = (counter, setCounter) => {
-    setCounter(counter + 60);
+      setCounter(counter + 60);
   };
 
   // For decreasing minutes and seconds we need to check first if the counter value will go to negative number after deduction or not, we should deduct only if it doesn't go to negative value
@@ -50,22 +51,29 @@ function SetTimer(props) {
   };
 
   const increaseSessions = () => {
-    setSessions(sessions + 1);
+    if(sessions + 1 <= sessionsLength){
+      setSessions(sessions + 1);
+    } else alert("number of sessions can't exceed the number of tasks!");
   };
 
   const decreaseSessions = () => {
-    setSessions(sessions - 1);
+    if(sessions >= 1) {
+      setSessions(sessions - 1);
+    }
   };
 
 
   // on Clicking on next button, this function will call an other function from App.js, It will update the timer's starting value then navigate the next page whhere the timer start to work on page load, a start on button will be implemented later
   const handleNextButtonClick = () => {
     props.updateTimers(workCountdownTime, restCountdownTime, longRestCountdownTime, sessions);
-    navigate("/taskTimer");
+    sessions !== 0 ? navigate("/taskTimer") : alert("number of Long Breaks can't be 0!");
   };
 
   return (
     <>
+      <div className="headd">
+        <p style={{color: "rgb(186, 186, 247);"}}><span style={{color: "#ffffff"}}>DE</span>THREADER</p>
+      </div>
       <div className="timer-container">
         <div className="work-outer">
           <div className="work">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MySessionProvider } from "./Pages/Helper/Context";
 import { onAuthStateChanged } from "firebase/auth";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -30,10 +31,10 @@ const Border = (props) => {
 const App = () => {
   document.title = "[De]Threader";
   const [user, setUser] = useState(null);
-  const [workCountdownTime, setWorkCountdownTime] = useState(120); // 25 minutes in seconds
+  const [workCountdownTime, setWorkCountdownTime] = useState(3); // 25 minutes in seconds
   const [restCountdownTime, setRestCountdownTime] = useState(300); // 5 minutes in seconds
   const [longRestCountdownTime, setLongRestCountdownTime] = useState(1200); // 20 minutes in seconds
-  const [sessions, setSessions] = useState(4);
+  const [sessions, setSessions] = useState(0);
 
   // this funciton is defined here and passed down to setTimer.jsx
   const updateTimers = (work, rest, longRest, numSessions) => {
@@ -53,34 +54,46 @@ const App = () => {
 
     return unsubscribe;
   }, []);
-  // Added By Lis
+  // Added By Usama
   const [userName, setUserName] = useState(null); //create state to pass through context
   const [isLoggedIn, setIsLoggedIn] = useState(false); //create state to pass through context
   return (
-    // the Way of using context (added by Lis)
+    // the Way of using context (added by Usama)
     <UserName.Provider value={{ userName, setUserName }}>
       <LoggedIn.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-        <Router>
-          <Border />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/newsessiontasks" element={<NewSessionTasks user={user} />} />
-            <Route path="/play-session" element={<SetTimer user={user} updateTimers={updateTimers} />} />
-            <Route
-  path="/taskTimer"
-  element={<TaskTimer
-    workCountdownTime={workCountdownTime}
-    restCountdownTime={restCountdownTime}
-    longRestCountdownTime={longRestCountdownTime}
-    sessions={sessions}
-  />}
-/>
-          </Routes>
-        </Router>
+        <MySessionProvider>
+          <Router>
+            <Border />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<LogIn setUser={setUser}/>} />
+              <Route path="/about" element={<About />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route
+                path="/newsessiontasks"
+                element={<NewSessionTasks user={user} />}
+              />
+              <Route
+                path="/play-session"
+                element={<SetTimer user={user} updateTimers={updateTimers} />}
+              />
+              <Route
+                path="/taskTimer"
+                element={
+                  <TaskTimer
+                    workCountdownTime={workCountdownTime}
+                    restCountdownTime={restCountdownTime}
+                    setWorkCountdownTime={setWorkCountdownTime}
+                    longRestCountdownTime={longRestCountdownTime}
+                    sessions={sessions}
+                    user={user}
+                  />
+                }
+              />
+            </Routes>
+          </Router>
+        </MySessionProvider>
       </LoggedIn.Provider>
     </UserName.Provider>
   );

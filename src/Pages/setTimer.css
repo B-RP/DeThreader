@@ -2,6 +2,42 @@
   font-family: 'Times New Roman', Times, serif !important;
 }
 
+.headd {
+  padding-top: 10px;
+  /* border: 1px solid rgb(186, 186, 247); */
+  position: relative;
+}
+
+.headd p {
+  color: rgb(186, 186, 247);
+  font-size: 4vw;
+  background-color: #101010;
+  z-index: 10;
+  position: relative;
+  width: 420px;
+  margin-left: 10vw;
+}
+
+.headd::before {
+  content: "";
+  border-top: 2px solid rgb(186, 186, 247);
+  position: absolute;
+  top: 45px;
+  width: 100%;
+  display: block;
+  z-index: 1;
+}
+
+.headd::after {
+  content: "";
+  border-top: 2px solid rgb(186, 186, 247);
+  position: absolute;
+  bottom: 33px;
+  width: 100%;
+  display: block;
+  z-index: 1;
+}
+
 .timer-container {
   display: flex;
   justify-content: center;

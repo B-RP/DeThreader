@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./Style.css";
 import "./add-task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +7,7 @@ import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { Tree } from "./Tree";
 import { TreeView } from "./TreeView";
 import { useNavigate } from "react-router-dom";
+import { Sessions } from "./Helper/Context";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebase";
 
@@ -69,9 +70,11 @@ const NewSessionTasks = (props) => {
   const [fields, setFields] = useState([]);
   const [topLevelFields, setTopLevelFields] = useState([]);
   const [checkedMap, setCheckedMap] = useState({});
-
+  const { sessionsLength, setSessionsLength } = useContext(Sessions);
   const user = props.user;
   let navigate = useNavigate();
+  setSessionsLength(topLevelFields.length);
+  console.log(sessionsLength);
 
   // this hook is to fetch data from database if the logged in user has any saved data in db
   useEffect(() => {

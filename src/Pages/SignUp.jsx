@@ -14,7 +14,7 @@ import { UserName } from './Helper/Context';
 const SignUp = () => {
   const {userName, setUserName} = useContext(UserName);
   /**
-   * Added by Lis
+   * Added by Usama
    * create states to save input values
    */
 
@@ -26,7 +26,7 @@ const SignUp = () => {
     confPass: "",
   });
   /**
-   * Added by Lis
+   * Added by Usama
    * check for Fields validation then
    * connect to Firebase and updat database with new users
    */
@@ -51,7 +51,7 @@ const SignUp = () => {
   }
   console.log(checkPassIdentical(userD.password, userD.confPass));
 
-/* Dina Firebase */
+
   const submitButton = async (e) => {
     e.preventDefault();
         firebase.initializeApp(firebaseConfig);
@@ -86,7 +86,7 @@ const SignUp = () => {
   };
 
   /**
-   * Added by Lis
+   * Added by Usama
    */
   let name, value;
   const fieldsValues = (e) => {
