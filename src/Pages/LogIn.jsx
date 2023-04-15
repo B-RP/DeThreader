@@ -138,6 +138,7 @@ const fieldHandler = (e) => {
               const user = result.user;
               // IdP data available using getAdditionalUserInfo(result)
               setUserName(user.displayName);
+              localStorage.setItem('user', JSON.stringify(user));
               setIsLoggedIn(true);
               const db = getDatabase();
               set(ref(db, `users/${user.uid}`), {

@@ -30,23 +30,24 @@ function Popup({
       audioRef.current.play();
     }
   }, [showPopup, audioRef, currentSession, restCountdownTime, longRestCountdownTime, sessions, setShowPopup, setWorkCountdownTime]);
-
-
+  console.log("current popup session",currentSession)
   return (
     <div className={`popup ${showPopup ? "open" : ""}`}>
       <div className="popup-inner">
         <h2>Time for a break!</h2>
         <p>
-          {currentSession % 4 === 0 ? "Take a long rest" : "Take a short rest"}
+          {currentSession % sessions === 0 ? "Take a long rest" : "Take a short rest"}
         </p>
         <Timer
           startTime={
-            currentSession % 4 === 0
+            currentSession % sessions === 0
               ? longRestCountdownTime
               : restCountdownTime
           }
+          onComplete={()=>handlePopupClose()}
+          startTimer={true}
         />
-        <button onClick={handlePopupClose}>Close</button>
+        {/* <button onClick={handlePopupClose}>Close</button> */}
       </div>
     </div>
   );

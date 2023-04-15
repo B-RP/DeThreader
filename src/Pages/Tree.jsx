@@ -2,14 +2,24 @@ import React, { useState } from "react";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //const tree = ({}) => {}
+const createDataTree = dataset => {
+  const hashTable = Object.create(null);
+  dataset.forEach(aData => hashTable[aData.id] = {...aData, children: []});
+  const dataTree = [];
+  dataset.forEach(aData => {
+    if(aData.parentId) hashTable[aData.parentId].children.push(hashTable[aData.id])
+    else dataTree.push(hashTable[aData.id])
+  });
+  return dataTree;
+};
 const Tree = ({
   data,
   handleAddField,
   handleDeleteField,
-  handleChange,
-  handleCheckboxChange,
-  checkedMap,
+  handleChange
 }) => {
+  console.log("this is the data",data)
+  const renderData = createDataTree(data)
   const renderTree = (nodes, depth = 0) => {
     if (!nodes) {
       return null;
@@ -17,19 +27,10 @@ const Tree = ({
     return nodes.map((node) => (
       <div key={node.id}>
         <div className={`task-container depth-${depth}`}>
-          <div className="checkboxContainer">
-            <input
-              type="checkbox"
-              checked={checkedMap[node.id] || node.checked} // update this
-              onChange={() => handleCheckboxChange(node.id)}
-            />
-          </div>
           <div className="text-field">
             <input
               type="text"
-              className={`texts ${
-                checkedMap[node.id] || node.checked ? "checked" : ""
-              }`}
+              className={`texts`}
               value={node.label}
               onChange={(e) => handleChange(node.id, e)}
             />
@@ -62,7 +63,7 @@ const Tree = ({
     ));
   };
 
-  return <div className="treeContainer">{renderTree(data)}</div>;
+  return <div className="treeContainer">{renderTree(renderData)}</div>;
 };
 
 export { Tree };

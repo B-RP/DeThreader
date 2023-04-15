@@ -1,7 +1,7 @@
 import React from "react";
 import { Tree } from "./Tree";
 
-const TreeView = ({ data, handleAddField, handleDeleteField, handleChange, handleCheckboxChange, checkedMap}) => {
+const TreeView = ({ data, handleAddField, handleDeleteField, handleChange}) => {
   return (
     <div>
       <Tree
@@ -9,8 +9,6 @@ const TreeView = ({ data, handleAddField, handleDeleteField, handleChange, handl
         handleAddField={handleAddField}
         handleDeleteField={handleDeleteField}
         handleChange={handleChange}
-        handleCheckboxChange={handleCheckboxChange}
-        checkedMap={checkedMap}
       />
     </div>
   );

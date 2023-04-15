@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 
 export const UserName = createContext({});
 export const LoggedIn = createContext({});
+export const GuestSession = createContext({});
 
 // Create a new context
 export const Sessions = createContext();

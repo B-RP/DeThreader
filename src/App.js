@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserName } from "./Pages/Helper/Context";
+import { GuestSession } from "./Pages/Helper/Context";
 import { LoggedIn } from "./Pages/Helper/Context";
 import Home from "./Pages/Home.jsx";
 import SignUp from "./Pages/SignUp.jsx";
@@ -16,6 +17,7 @@ import { getAuth } from "firebase/auth";
 import SetTimer from "./Pages/setTimer";
 import TaskTimer from "./Pages/taskTimer";
 import { update } from "firebase/database";
+import Stats from "./Pages/Stats";
 // import { Auth } from "firebase/auth";
 
 const auth = getAuth(app);
@@ -34,6 +36,14 @@ const App = () => {
   const [workCountdownTime, setWorkCountdownTime] = useState(3); // 25 minutes in seconds
   const [restCountdownTime, setRestCountdownTime] = useState(300); // 5 minutes in seconds
   const [longRestCountdownTime, setLongRestCountdownTime] = useState(1200); // 20 minutes in seconds
+  const [guestSession, setGuestSession] = useState({
+    tasks: [],
+    status: "Incomplete",
+    workTime: 60,
+    restTime: 60,
+    longRestTime: 60,
+    workSessionPerCycle: 1,
+  }); // 20 minutes in seconds
   const [sessions, setSessions] = useState(0);
 
   // this funciton is defined here and passed down to setTimer.jsx
@@ -61,15 +71,17 @@ const App = () => {
     // the Way of using context (added by Lis)
     <UserName.Provider value={{ userName, setUserName }}>
       <LoggedIn.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <GuestSession.Provider value={{ guestSession, setGuestSession }}>
         <MySessionProvider>
           <Router>
             <Border />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<LogIn setUser={setUser}/>} />
+              <Route path="/login" element={<LogIn setUser={setUser} />} />
               <Route path="/about" element={<About />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/stats" element={<Stats />} />
               <Route
                 path="/newsessiontasks"
                 element={<NewSessionTasks user={user} />}
@@ -94,6 +106,7 @@ const App = () => {
             </Routes>
           </Router>
         </MySessionProvider>
+        </GuestSession.Provider>
       </LoggedIn.Provider>
     </UserName.Provider>
   );

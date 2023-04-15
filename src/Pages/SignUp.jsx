@@ -73,7 +73,7 @@ const SignUp = () => {
           // add more user data here if you want
         });
         // Do something with the user object
-        navigate('/dashboard');
+        navigate('/login');
         setUserName(userD.userName);
       })
       .catch((error) => {
@@ -168,7 +168,7 @@ const SignUp = () => {
                   onChange={fieldsValues}
                 />
                 {
-                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>passwords should be same!</p>)
+                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>Passwords must match</p>)
                 }
                 
               </div>
