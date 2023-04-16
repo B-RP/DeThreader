@@ -88,9 +88,16 @@
 }
 
 .avatar-profile{
-  position: absolute;
+  width: 500px;
+  position: fixed;
+
+  top: 43%;
+  transform: translateY(-50%);
+  right: 7vw;
+}
+ /* position: absolute;
   top: 43%;
   right:10%;
-  width: 800px;
+  width: 400px;
   height: auto;
-}
+}*/
