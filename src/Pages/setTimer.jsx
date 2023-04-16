@@ -67,7 +67,7 @@ function SetTimer(props) {
   const increaseSessions = () => {
     if (sessions + 1 <= fields.length) {
       setSessions(sessions + 1);
-    } else alert("number of sessions can't exceed the number of tasks!");
+    }else alert("Number of cycles can't exceed the number of tasks!");
   };
 
   const decreaseSessions = () => {

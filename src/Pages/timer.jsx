@@ -18,7 +18,7 @@ function Timer({ startTime, onComplete, startTimer }) {
             return 0
           }
         });
-      }, 1000); // Speed of timer
+      }, 1000);
 
       return () => clearInterval(intervalId);
     }

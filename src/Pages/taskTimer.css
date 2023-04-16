@@ -28,7 +28,7 @@
   position: relative;
 }
 
-.headd p {
+.headd p,.headd div {
   color: #A1CCA5;
   font-size: 4vw;
   background-color: #101010;
@@ -36,6 +36,9 @@
   position: relative;
   width: 420px;
   margin-left: 10vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .headd::before {
@@ -85,4 +88,11 @@
     padding: 6px!important;
     width: 140px;
     margin-bottom: 25px;
+}
+
+.avatar-profile{
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }

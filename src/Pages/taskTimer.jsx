@@ -35,6 +35,7 @@ const fetchTasks = (userId, setWorkCountdownTime, setRestCountdownTime, setLongR
       setLongRestCountdownTime(longRestTime);
       setSessions(workSessionPerCycle);
       setFields(tasks);
+      console.log(data)
     }
   });
 };
@@ -51,6 +52,16 @@ const fetchAnalytics = (userId, setStatsCycles, setStatsWork, setStatsRest) => {
       setStatsCycles(0)
       setStatsWork(0)
       setStatsRest(0)
+    }
+  });
+};
+
+const fetchImageUrl = (userId, setImage) => {
+  const tasksRef = ref(db, `profile/${userId}`);
+  onValue(tasksRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) {
+      setImage(data.url)
     }
   });
 };
@@ -73,11 +84,13 @@ function TaskTimer(props) {
   const [statsRest, setStatsRest] = useState(null);
   const [fields, setFields] = useState([]);
   const [playAudio, setPlayAudio] = useState(false);
+  const [image, setImage] = useState(null);
   const myAudio = useRef(null);
   useEffect(() => {
     if (user) {
       fetchTasks(user.uid, setWorkCountdownTime, setRestCountdownTime, setLongRestCountdownTime, setSessions, setFields, setTime);
       fetchAnalytics(user.uid, setStatsCycles, setStatsWork, setStatsRest)
+      fetchImageUrl(user.uid, setImage)
     } else {
       setFields(guestSession.tasks)
       setRestCountdownTime(guestSession.restCountdownTime)
@@ -206,9 +219,15 @@ function TaskTimer(props) {
     <>
       <div className="main-div">
         <div className="headd" style={{ display: "flex" }}>
-          <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
-            <span style={{ color: "#ffffff" }}>DE</span>THREADER
-          </p>
+          {!image ?
+            <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
+              <span style={{ color: "#ffffff" }}>DE</span>THREADER
+            </p>
+            :
+            <div>
+              <img className="avatar-profile" src={image} />
+            </div>
+          }
           <p onClick={() => cancelSession()} style={{ cursor: "pointer" }}>
             Cancel session
           </p>

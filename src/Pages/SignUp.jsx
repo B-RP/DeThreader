@@ -69,7 +69,7 @@ const SignUp = () => {
         set(ref(db, `users/${user.uid}`), {
           email: user.email,
           password: userD.password,
-          displayName: userD.userName
+          displayName: userD.userName,
           // add more user data here if you want
         });
         // Do something with the user object
@@ -168,7 +168,7 @@ const SignUp = () => {
                   onChange={fieldsValues}
                 />
                 {
-                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>Passwords must match</p>)
+                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>passwords should be same!</p>)
                 }
                 
               </div>
