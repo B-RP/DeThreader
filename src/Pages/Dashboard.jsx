@@ -67,7 +67,7 @@ const Dashboard = () => {
           const tasksRef = ref(db, `profile/${user.uid}`);
           set(tasksRef, { url })
             .then(() => {
-              alert("Succfully uploaded picture!")
+              alert("Photo uploaded successfully!")
             })
             .catch((error) => {
               alert("An Error Occured, Please Try Again!")

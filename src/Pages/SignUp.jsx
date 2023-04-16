@@ -134,7 +134,7 @@ const SignUp = () => {
                   onChange={fieldsValues}
                 />
                 {
-                  checkEmail(userD.email) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "77px"}}>Invalid Email!</p>)
+                  checkEmail(userD.email) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "77px"}}>Email must contain @ and .</p>)
                 }
               </div>
               <div className="password">
@@ -168,7 +168,7 @@ const SignUp = () => {
                   onChange={fieldsValues}
                 />
                 {
-                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>passwords should be same!</p>)
+                  checkPassIdentical(userD.password, userD.confPass) ? "" : (<p style={{color: "#e34949", fontSize: "12px", marginBottom: 0, "margin-left": "155px"}}>Passwords must match</p>)
                 }
                 
               </div>

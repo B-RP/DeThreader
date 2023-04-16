@@ -100,6 +100,7 @@ function TaskTimer(props) {
       setSessions(guestSession.sessions)
       setWorkCountdownTime(guestSession.workTime)
       setTime(guestSession.workTime)
+      setStatsCycles(0)
     }
   }, [user]);
   
