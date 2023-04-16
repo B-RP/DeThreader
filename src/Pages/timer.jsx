@@ -18,7 +18,7 @@ function Timer({ startTime, onComplete, startTimer }) {
             return 0
           }
         });
-      }, 1000);
+      }, 200);
 
       return () => clearInterval(intervalId);
     }

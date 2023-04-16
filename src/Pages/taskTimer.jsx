@@ -43,7 +43,9 @@ const fetchTasks = (userId, setWorkCountdownTime, setRestCountdownTime, setLongR
 const fetchAnalytics = (userId, setStatsCycles, setStatsWork, setStatsRest) => {
   const tasksRef = ref(db, `stats/${userId}`);
   onValue(tasksRef, (snapshot) => {
+    console.log("new user",snapshot.exists())
     const data = snapshot.val();
+    console.log("new user",data)
     if (data) {
       setStatsCycles(data.statsCycles)
       setStatsWork(data.statsWork)
@@ -100,19 +102,22 @@ function TaskTimer(props) {
       setTime(guestSession.workTime)
     }
   }, [user]);
+  
+  console.log('@@@@@@@@@@statsCycles,statsWork,statsRest', statsCycles,statsWork,statsRest)
 
-  const onComplete = () => {
+  const onComplete = useCallback(() => {
     if (currentSession <= sessions) {
       setPlayAudio(false);
     } else {
       setCurrentSession(1)
     }
-    if (!isNaN(parseInt(statsCycles)) && !isNaN(parseInt(statsRest))) {
+    console.log('statsCycles,statsWork,statsRest', statsCycles,statsWork,statsRest)
+    if (!isNaN(parseInt(statsCycles)) && !isNaN(parseInt(statsWork))) {
       setStatsWork(statsWork + workCountdownTime)
     }
     setShowPopup(true);
     setTime(workCountdownTime);
-  }
+  },[statsCycles,statsWork,currentSession,sessions,workCountdownTime])
 
   useEffect(() => {
     if (playAudio) {
@@ -122,7 +127,7 @@ function TaskTimer(props) {
     }
   }, [playAudio]);
 
-  const handlePopupClose = () => {
+  const handlePopupClose = useCallback(() => {
     setShowPopup(false);
     setPlayAudio(true);
     if (currentSession < sessions) {
@@ -137,8 +142,7 @@ function TaskTimer(props) {
       }
       setCurrentSession(1);
     }
-
-  };
+  },[statsRest,statsCycles,longRestCountdownTime,restCountdownTime,sessions,currentSession]);
 
   const saveStats = () => {
     if (user && user.uid && (statsCycles !== null) && (statsWork !== null) && (statsRest !== null)) {
@@ -228,7 +232,7 @@ function TaskTimer(props) {
         </div>
         <div className="wor-timer">
           <h1>
-            {time && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
+            {time && (statsCycles!==null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
           </h1>
           <h1 className="tsk" style={{ color: "#A1CCA5" }}>TASKS</h1>
         </div>
