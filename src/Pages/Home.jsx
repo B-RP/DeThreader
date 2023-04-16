@@ -16,9 +16,18 @@ const Home = () => {
         <>
         <div><span className="titleDE">[DE]</span><span className="titleTHREADER">THREADER</span></div>
 
-        <TextButton action={()=> {navigate("/SignUp")}} text={'Sign Up'} />
-        <TextButton action={()=> {navigate("/LogIn")}} text={'Log In'} />
-        <TextButton action={()=> {navigate("/dashboard")}} text={'Continue as Guest'} />
+        <TextButton action={()=> {
+          navigate("/SignUp")
+          localStorage.clear()
+          }} text={'Sign Up'} />
+        <TextButton action={()=> {
+          navigate("/LogIn")
+          localStorage.clear()
+          }} text={'Log In'} />
+        <TextButton action={()=> {
+          navigate("/dashboard")
+          localStorage.clear()
+          }} text={'Continue as Guest'} />
         <TextButton action={()=> {navigate("/about")}} text={'About Us'} />
         {/* Added */}
         

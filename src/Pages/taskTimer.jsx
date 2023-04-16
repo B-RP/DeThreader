@@ -219,15 +219,9 @@ function TaskTimer(props) {
     <>
       <div className="main-div">
         <div className="headd" style={{ display: "flex" }}>
-          {!image ?
-            <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
-              <span style={{ color: "#ffffff" }}>DE</span>THREADER
-            </p>
-            :
-            <div>
-              <img className="avatar-profile" src={image} />
-            </div>
-          }
+          <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
+            <span style={{ color: "#ffffff" }}>DE</span>THREADER
+          </p>
           <p onClick={() => cancelSession()} style={{ cursor: "pointer" }}>
             Cancel session
           </p>
@@ -272,9 +266,13 @@ function TaskTimer(props) {
           </button>
           <audio src={relax} ref={myAudio}></audio>
         </div>
-        <div className="logo">
-          <img src={logo} alt="logo" />
-        </div>
+        {!image ?
+          <div className="logo">
+            <img src={logo} alt="logo" />
+          </div>
+          : <div>
+            <img className="avatar-profile" src={image} />
+          </div>}
       </div>
     </>
   );
