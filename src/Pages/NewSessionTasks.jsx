@@ -134,12 +134,16 @@ const NewSessionTasks = (props) => {
               size={"lg"}
             />
           </button>
-          <label style={{ marginLeft: "10px" }}>Add Task</label>
-        </div>
+          </div>
+          {/*<label style={{ marginLeft: "10px" }}>Add Task</label>*/}
+          <div className="buttonContainer">
+            <div className="buttonContainer-child">
+              <button className="textButton" onClick={saveTasksData}>
+                Next
+              </button>
+          </div>
+          </div>
       </div>
-      <button className="go-btn" onClick={saveTasksData}>
-        Next
-      </button>
     </div>
   );
 };

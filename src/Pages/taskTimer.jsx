@@ -8,13 +8,14 @@ import React, {
 import Timer from "./timer";
 import Popup from "./popup";
 import "./taskTimer.css";
+import "./Style.css";
 import LabelTree from "./labelTree";
 import { GuestSession, Sessions } from "./Helper/Context";
-import relax from "../assets/relax.mp3";
+import lofi from "../assets/lofi.mp3";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
-import logo from "../assets/logo.png"
+import { faPlay, faPause, faX} from "@fortawesome/free-solid-svg-icons";
+import DefaultIMG from "../assets/DefaultIMG.png"
 import { useNavigate } from "react-router-dom";
 
 const db = getDatabase(); //Initialize database
@@ -222,7 +223,9 @@ function TaskTimer(props) {
 
   return (
     <>
-      <div className="main-div">
+      <div className="Background">
+      <div className="MainCenterContainer">
+        {/*
         <div className="headd" style={{ display: "flex" }}>
           <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
             <span style={{ color: "#ffffff" }}>DE</span>THREADER
@@ -231,53 +234,113 @@ function TaskTimer(props) {
             Cancel session
           </p>
         </div>
-        <div className="wor-timer">
-          <h1>
-            {time && (statsCycles!==null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
-          </h1>
-          <h1 className="tsk" style={{ color: "#A1CCA5" }}>TASKS</h1>
+      */}
+        <div>
+          <span className="titleDE">[DE]</span>
+          <span className="titleTHREADER">THREADER</span>
         </div>
-        {showPopup && (
-          <Popup
-            handlePopupClose={handlePopupClose}
-            restCountdownTime={restCountdownTime}
-            longRestCountdownTime={longRestCountdownTime}
-            sessions={sessions}
-            showPopup={showPopup}
-            setShowPopup={setShowPopup}
-            currentSession={currentSession}
-            setCurrentSession={setCurrentSession}
-            workCountdownTime={workCountdownTime}
-            setWorkCountdownTime={setWorkCountdownTime}
-            audioRef={myAudio}
-          />
-        )}
-        <div className="tasks">
-          <h5>
-            <LabelTree user={user} fields={fields} setFields={updateFields} />
-          </h5>
-        </div>
-        <div className="play">
-          <button onClick={() => setPlayAudio(!playAudio)}>
-            {playAudio ? (
-              <span>
-                <FontAwesomeIcon icon={faPause} /> Pause
-              </span>
-            ) : (
-              <span>
-                <FontAwesomeIcon icon={faPlay} /> Play
-              </span>
-            )}
-          </button>
-          <audio src={relax} ref={myAudio}></audio>
-        </div>
-        {!image ?
-          <div className="logo">
-            <img src={logo} alt="logo" />
+
+        <br></br>
+
+        <div className="SessionContainer">
+
+        <div className="SessionLeft">
+          <div className="wor-timer">
+            <h1>
+              {time && (statsCycles!==null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
+            </h1>
+            {/*
+            <h1 className="tsk" style={{ color: "#A1CCA5" }}>TASKS</h1>
+            */}
           </div>
-          : <div>
-            <img className="avatar-profile" src={image} />
-          </div>}
+          {showPopup && (
+            <Popup
+              handlePopupClose={handlePopupClose}
+              restCountdownTime={restCountdownTime}
+              longRestCountdownTime={longRestCountdownTime}
+              sessions={sessions}
+              showPopup={showPopup}
+              setShowPopup={setShowPopup}
+              currentSession={currentSession}
+              setCurrentSession={setCurrentSession}
+              workCountdownTime={workCountdownTime}
+              setWorkCountdownTime={setWorkCountdownTime}
+              audioRef={myAudio}
+            />
+          )}
+          <div className="tasks">
+            <h5>
+              <LabelTree user={user} fields={fields} setFields={updateFields} />
+            </h5>
+          </div>
+        </div>
+
+        <div className="SessionRight">
+          
+          {!image ?
+            <div>
+              <img className="SessionImg"src={DefaultIMG} alt="Default Image" />
+            </div>
+            : 
+            <div>
+              <img className="SessionImg" src={image} />
+            </div>}
+
+            <div className="play">
+              {/*
+              <button onClick={() => setPlayAudio(!playAudio)}>
+                {playAudio ? (
+                  <span>
+                    <FontAwesomeIcon icon={faPause}/> Pause Audio
+                  </span>
+                  ) : (
+                  <span>
+                    <FontAwesomeIcon icon={faPlay} /> Play Audio 
+                  </span>
+                  )}
+              </button>
+              <audio src={relax} ref={myAudio}></audio>
+                  */}
+              <div className="buttonContainer">
+                  {/*
+                <span onClick={() => cancelSession()} className="textButton">
+                End and Delete Session
+                </span>
+                  
+
+                <span onClick={() => { navigate("/dashboard")}} className="textButton">
+                Save and Exit
+                </span>
+                  */}
+
+              <button onClick={() => setPlayAudio(!playAudio)}>
+                {playAudio ? (
+                  <span>
+                    <FontAwesomeIcon icon={faPause}/> Pause Audio
+                  </span>
+                  ) : (
+                  <span>
+                    <FontAwesomeIcon icon={faPlay} /> Play Audio 
+                  </span>
+                  )}
+              </button>
+              <audio src={lofi} ref={myAudio}></audio>
+
+                <button onClick={() => cancelSession()}>
+                  <FontAwesomeIcon icon={faX}/> End and Delete Session 
+                </button>
+
+                <button onClick={() => { navigate("/dashboard")}}>
+                  <FontAwesomeIcon icon={faX}/> Save and Exit Session 
+                </button>
+              
+              </div>
+            </div>
+
+
+            </div>
+            </div>
+      </div>
       </div>
     </>
   );

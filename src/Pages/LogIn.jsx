@@ -9,9 +9,9 @@ const TextButton = (props) => {
   return(
   <button 
     onClick={props.action} 
-    className="textButton" 
-    style={{display: "inline-block", "margin-left": "85px", position: "absolute", bottom: "70px", right: "220px"}}>
+    className="textButton">
     {props.text}
+  
   </button>
   )
 }
@@ -80,9 +80,11 @@ const fieldHandler = (e) => {
           <form className="form" method="GET" style={{position: "relative"}}>
             <div className="form-body">
               <div className="email">
+                {/*}
                 <label className="form__label" for="email">
                   Email{" "}
                 </label>
+  */}
                 <input
                   type="email"
                   id="email"
@@ -96,9 +98,11 @@ const fieldHandler = (e) => {
                 
               </div>
               <div className="password">
+                {/*
                 <label className="form__label" for="password">
                   Password{" "}
                 </label>
+                */}
                 <input
                   className={`form__input`}
                   type="password"
@@ -124,7 +128,7 @@ const fieldHandler = (e) => {
               </button>
               
             </div>
-          </form>
+          {/*
           <TextButton action={()=> {
           const provider = new GoogleAuthProvider();
           //Just grab this code from Firebase documentation
@@ -155,6 +159,10 @@ const fieldHandler = (e) => {
               setIsLoggedIn(false);
             });
         }} text={'Log In with Google'} />
+      */}
+        </form>
+
+
         </>
       </div>
     </div>

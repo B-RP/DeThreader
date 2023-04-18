@@ -2,8 +2,14 @@
 .createTasksContainer button{
     background-color: transparent;
     border: none;
-}
 
+}
+.createTasksContainer{
+ 
+    overflow:auto;
+    max-height:440px;
+    
+}
 .task-container {
     display: flex;
     flex-direction: row;

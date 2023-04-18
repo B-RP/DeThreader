@@ -124,9 +124,17 @@ function SetTimer(props) {
 
   return (
     <>
+      {/* 
       <div className="headd">
         <p style={{ color: "rgb(186, 186, 247);" }}><span style={{ color: "#ffffff" }}>DE</span>THREADER</p>
       </div>
+      */}
+      <div className="Background">
+      <div className="MainCenterContainer">
+      <div>
+          <span className="titleDE">[DE]</span>
+          <span className="titleTHREADER">THREADER</span>
+        </div>
       <div className="timer-container">
         <div className="work-outer">
           <div className="work">
@@ -335,13 +343,15 @@ function SetTimer(props) {
           </div>
           {/* .long-rest .times */}
         </div>
-        <button
-          className="next-btn"
-          style={{ color: "#FFFFFF" }}
-          onClick={handleNextButtonClick}
-        >
-          Next
-        </button>
+      </div>
+      <div className="buttonContainer">
+            <div className="buttonContainer-child">
+              <button className="textButton" onClick={saveTasksData}>
+                Next
+              </button>
+          </div>
+          </div>
+      </div>
       </div>
       {/* .timer-container */}
     </>

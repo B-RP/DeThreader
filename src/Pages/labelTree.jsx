@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { Sessions } from "./Helper/Context";
+import "./Style.css"
 
 const db = getDatabase(); //Initialize database
 
@@ -37,6 +38,7 @@ function LabelTree({ fields,setFields }) {
           <div className="checkboxContainer">
             <input
               type="checkbox"
+              className="checkmark"
               checked={node.checked} // update this
               onChange={() => handleCheckboxChange(node.id)}
             />

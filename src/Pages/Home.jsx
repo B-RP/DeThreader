@@ -11,9 +11,11 @@ const Home = () => {
   let navigate = useNavigate();
 
   return (
+    <>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <div className="Background">
       <div className="MainCenterContainer">
-        <>
+        
         <div><span className="titleDE">[DE]</span><span className="titleTHREADER">THREADER</span></div>
 
         <TextButton action={()=> {
@@ -31,9 +33,10 @@ const Home = () => {
         <TextButton action={()=> {navigate("/about")}} text={'About Us'} />
         {/* Added */}
         
-        </>
+        
       </div>
     </div>
+    </>
   );
 }
 

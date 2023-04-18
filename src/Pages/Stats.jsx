@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Style.css";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 const db = getDatabase(); //Initialize database
 
 const fetchAnalytics = (userId, setStatsCycles, setStatsWork, setStatsRest) => {
@@ -71,7 +71,7 @@ const Stats = () => {
             {user ? (
               <button onClick={() => { navigate("/dashboard") }} className="iconButton">
                 <FontAwesomeIcon
-                  icon={faUser}
+                  icon={faX}
                   size={"2xl"}
                   className="fa-Icon"
                 />

@@ -58,16 +58,27 @@
   z-index: 1;
 }
 
-.tasks, .wor-timer {
-  margin-left: 12vw;
+.wor-timer {
+  /*margin-left: 12vw;*/
+  padding: 15px;
+}
+
+.tasks{
+  padding: 15px;
+  overflow:auto;
+  max-height:440px;
 }
 
 .play button {
   background-color: #A1CCA5;
-  border: none;
+
   border-radius: 4px;
-  margin-left: 12vw;
+  
   padding: 8px 20px 8px 20px;
+}
+
+.play{
+  padding: 20px;
 }
 
 .logo img {
@@ -95,9 +106,54 @@
   transform: translateY(-50%);
   right: 7vw;
 }
+
+.SessionImg
+{
+  
+  width: auto !important; /*override the width below*/
+  width: 100%;
+  max-width: 678px;
+  
+  clear: both;
+  /*
+  top: 43%;
+  transform: translateY(-50%);
+  right: 7vw;
+  overflow: hidden;
+  */
+}
  /* position: absolute;
   top: 43%;
   right:10%;
   width: 400px;
   height: auto;
 }*/
+
+.SessionContainer
+{
+  display: flex;
+  
+}
+
+.SessionLeft 
+{
+  flex-grow: 1;
+  padding-right: 15px;
+  display:table-cell;
+  vertical-align:middle;
+  margin:10px;
+  text-align: center;
+  
+}
+
+.SessionRight
+{
+  flex-grow: 1;
+  padding-left: 15px;
+
+  display:table-cell;
+  vertical-align:middle;
+  margin:10px;
+  text-align: center;
+  
+}

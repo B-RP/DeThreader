@@ -6,6 +6,7 @@ import "firebase/compat/auth";
 import { firebaseConfig } from "../firebase";
 import { useNavigate } from 'react-router-dom';
 import { UserName } from './Helper/Context';
+import "./Style.css";
 
 
 
@@ -107,9 +108,13 @@ const SignUp = () => {
           <form className="form" method="POST">
             <div className="form-body">
               <div className="username">
+                {/*
                 <label className="form__label" for="userName">
                    User Name
-                </label><input
+                </label>
+  */}
+                
+                <input
                   type="email"
                   name="userName"
                   id="email"
@@ -121,9 +126,11 @@ const SignUp = () => {
               </div>
 
               <div className="email">
+                {/*
                 <label className="form__label" for="email">
                   Email
                 </label>
+*/}
                 <input
                   type="email"
                   name="email"
@@ -138,9 +145,11 @@ const SignUp = () => {
                 }
               </div>
               <div className="password">
+                {/*
                 <label className="form__label" for="password">
                   Password{" "}
                 </label>
+              */}
                 <input
                   className={`form__input ${checkPassLength(userD.password) ? "" : 'length-error'}`}
                   name="password"
@@ -155,9 +164,11 @@ const SignUp = () => {
                 }
               </div>
               <div className="confirm-password">
+                {/*
                 <label className="form__label" for="confirmPassword">
                   Confirm Password{" "}
                 </label>
+              */}
                 <input
                   className={`form__input ${checkPassIdentical(userD.password, userD.confPass) ? "" : 'identical-error'}`}
                   name="confPass"

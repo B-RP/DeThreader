@@ -128,7 +128,7 @@ const Dashboard = () => {
               ""
             )}
 
-            <button onClick={() => { }} className="iconButton">
+            <button onClick={() => { navigate("/about"); }} className="iconButton">
               <FontAwesomeIcon
                 icon={faQuestion}
                 size={"2xl"}
