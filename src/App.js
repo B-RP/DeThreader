@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { MySessionProvider } from "./Pages/Helper/Context";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged,signOut  } from "firebase/auth";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserName } from "./Pages/Helper/Context";
@@ -55,6 +55,7 @@ const App = () => {
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log(user)
       if (user) {
         setUser(user);
       } else {
@@ -64,6 +65,16 @@ const App = () => {
 
     return unsubscribe;
   }, []);
+
+  const handleLogout = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      console.log("Signed out successfully")
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+
   // Added
   const [userName, setUserName] = useState(null); //create state to pass through context
   const [isLoggedIn, setIsLoggedIn] = useState(false); //create state to pass through context
@@ -72,40 +83,40 @@ const App = () => {
     <UserName.Provider value={{ userName, setUserName }}>
       <LoggedIn.Provider value={{ isLoggedIn, setIsLoggedIn }}>
         <GuestSession.Provider value={{ guestSession, setGuestSession }}>
-        <MySessionProvider>
-          <Router>
-            <Border />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<LogIn setUser={setUser} />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/stats" element={<Stats />} />
-              <Route
-                path="/newsessiontasks"
-                element={<NewSessionTasks user={user} />}
-              />
-              <Route
-                path="/play-session"
-                element={<SetTimer user={user} updateTimers={updateTimers} />}
-              />
-              <Route
-                path="/taskTimer"
-                element={
-                  <TaskTimer
-                    workCountdownTime={workCountdownTime}
-                    restCountdownTime={restCountdownTime}
-                    setWorkCountdownTime={setWorkCountdownTime}
-                    longRestCountdownTime={longRestCountdownTime}
-                    sessions={sessions}
-                    user={user}
-                  />
-                }
-              />
-            </Routes>
-          </Router>
-        </MySessionProvider>
+          <MySessionProvider>
+            <Router basename="/">
+              <Border />
+              <Routes>
+                <Route path="/" element={<Home handleLogout={handleLogout}/>} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<LogIn setUser={setUser} />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route
+                  path="/newsessiontasks"
+                  element={<NewSessionTasks user={user} />}
+                />
+                <Route
+                  path="/play-session"
+                  element={<SetTimer user={user} updateTimers={updateTimers} />}
+                />
+                <Route
+                  path="/taskTimer"
+                  element={
+                    <TaskTimer
+                      workCountdownTime={workCountdownTime}
+                      restCountdownTime={restCountdownTime}
+                      setWorkCountdownTime={setWorkCountdownTime}
+                      longRestCountdownTime={longRestCountdownTime}
+                      sessions={sessions}
+                      user={user}
+                    />
+                  }
+                />
+              </Routes>
+            </Router>
+          </MySessionProvider>
         </GuestSession.Provider>
       </LoggedIn.Provider>
     </UserName.Provider>

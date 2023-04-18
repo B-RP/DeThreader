@@ -18,14 +18,40 @@ const createDataTree = dataset => {
   return dataTree;
 };
 function LabelTree({ fields,setFields }) {
+  let renderData = createDataTree(fields)
 
-  const handleCheckboxChange = (fieldId) => {
-    const newFields = fields.map((field) =>
-      field.id === fieldId
-        ? { ...field, checked: !field.checked }
-        : field
-    );
-    setFields(newFields);
+  function getBottomUp(node, path) {
+    let uncheckedChilds = !!node.children.filter(n => !n.checked).length;
+    if (node.children.length == 0) {
+      return node
+    }
+    return {
+      ...node,
+      checked: !uncheckedChilds,
+      children: node.children.map(v => getBottomUp(v, path))
+    }
+  }
+  for (let i = 0; i < 5; i++) {
+    renderData = renderData.map(n => getBottomUp(n))
+  }
+  const handleCheckboxChange = (fieldId, node, checked) => {
+    let descendants = [fieldId]
+    function recurseAndAdd(node) {
+      descendants.push(node.id);
+      var children = node.children;
+      for (let i = 0; i < children.length; i++) {
+        recurseAndAdd(children[i]);
+      }
+    }
+    recurseAndAdd(node)
+    const newFields = fields.map((field) => {
+      if (descendants.includes(field.id)) {
+        return { ...field, checked }
+      } else {
+        return field
+      }
+    });
+    return newFields
   };
 
   const renderTree = (fields, depth = 0) => {
@@ -40,7 +66,10 @@ function LabelTree({ fields,setFields }) {
               type="checkbox"
               className="checkmark"
               checked={node.checked} // update this
-              onChange={() => handleCheckboxChange(node.id)}
+              onChange={(e) => {
+                const updatedTree = handleCheckboxChange(node.id, node, e.target.checked)
+                setFields(updatedTree);
+              }}
             />
           </div>
           <div className="label-field" style={{ color: "#FFFFFF" }}>
@@ -58,7 +87,6 @@ function LabelTree({ fields,setFields }) {
       </div>
     ));
   };
-  const renderData = createDataTree(fields)
   return (
     <>
       <div className="treeContainer">{renderTree(renderData)}</div>

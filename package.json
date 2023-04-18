@@ -1,5 +1,6 @@
 {
   "name": "dethreader",
+  "homepage": "https://threader-app-8163c.web.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

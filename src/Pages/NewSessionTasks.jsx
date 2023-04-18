@@ -85,10 +85,18 @@ const NewSessionTasks = (props) => {
 
 
   // Define a function `handleDeleteField` that deletes a task from the `fields` state and the database
-  const handleDeleteField = (fieldId) => {
+  const handleDeleteField = (fieldId,node) => {
+    let descendants = [fieldId]
+    function recurseAndAdd(node) {
+      descendants.push(node.id);
+      var children = node.children;
+      for (let i = 0; i < children.length; i++) {
+        recurseAndAdd(children[i]);
+      }
+    }
+    recurseAndAdd(node)
 
-    const newFields = fields.filter((field) => field.id !== fieldId);
-
+    const newFields = fields.filter((field) => !descendants.includes(field.id));
     // Update the `fields` state with the new array using the `setFields` updater function
     setFields(newFields);
   };

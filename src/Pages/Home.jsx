@@ -1,5 +1,5 @@
 import './Style.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const TextButton = (props) => {
@@ -7,8 +7,12 @@ const TextButton = (props) => {
   <button onClick={props.action} className="textButton">{props.text}</button>
   )
 }
-const Home = () => {
+const Home = ({handleLogout}) => {
   let navigate = useNavigate();
+
+  useEffect(()=>{
+    handleLogout()
+  },[])
 
   return (
     <>

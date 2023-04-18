@@ -14,7 +14,7 @@ import { GuestSession, Sessions } from "./Helper/Context";
 import lofi from "../assets/lofi.mp3";
 import { getDatabase, ref, set, onValue, remove } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faX} from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faPause, faX } from "@fortawesome/free-solid-svg-icons";
 import DefaultIMG from "../assets/DefaultIMG.png"
 import { useNavigate } from "react-router-dom";
 
@@ -44,9 +44,9 @@ const fetchTasks = (userId, setWorkCountdownTime, setRestCountdownTime, setLongR
 const fetchAnalytics = (userId, setStatsCycles, setStatsWork, setStatsRest) => {
   const tasksRef = ref(db, `stats/${userId}`);
   onValue(tasksRef, (snapshot) => {
-    console.log("new user",snapshot.exists())
+    console.log("new user", snapshot.exists())
     const data = snapshot.val();
-    console.log("new user",data)
+    console.log("new user", data)
     if (data) {
       setStatsCycles(data.statsCycles)
       setStatsWork(data.statsWork)
@@ -60,6 +60,7 @@ const fetchAnalytics = (userId, setStatsCycles, setStatsWork, setStatsRest) => {
 };
 
 const fetchImageUrl = (userId, setImage) => {
+  console.log(userId)
   const tasksRef = ref(db, `profile/${userId}`);
   onValue(tasksRef, (snapshot) => {
     const data = snapshot.val();
@@ -96,16 +97,16 @@ function TaskTimer(props) {
       fetchImageUrl(user.uid, setImage)
     } else {
       setFields(guestSession.tasks)
-      setRestCountdownTime(guestSession.restCountdownTime)
-      setLongRestCountdownTime(guestSession.longRestCountdownTime)
-      setSessions(guestSession.sessions)
+      setRestCountdownTime(guestSession.restTime)
+      setLongRestCountdownTime(guestSession.longRestTime)
+      setSessions(guestSession.workSessionPerCycle)
       setWorkCountdownTime(guestSession.workTime)
       setTime(guestSession.workTime)
       setStatsCycles(0)
     }
   }, [user]);
-  
-  console.log('@@@@@@@@@@statsCycles,statsWork,statsRest', statsCycles,statsWork,statsRest)
+
+  console.log('@@@@@@@@@@statsCycles,statsWork,statsRest', statsCycles, statsWork, statsRest)
 
   const onComplete = useCallback(() => {
     if (currentSession <= sessions) {
@@ -113,13 +114,13 @@ function TaskTimer(props) {
     } else {
       setCurrentSession(1)
     }
-    console.log('statsCycles,statsWork,statsRest', statsCycles,statsWork,statsRest)
+    console.log('statsCycles,statsWork,statsRest', statsCycles, statsWork, statsRest)
     if (!isNaN(parseInt(statsCycles)) && !isNaN(parseInt(statsWork))) {
       setStatsWork(statsWork + workCountdownTime)
     }
     setShowPopup(true);
     setTime(workCountdownTime);
-  },[statsCycles,statsWork,currentSession,sessions,workCountdownTime])
+  }, [statsCycles, statsWork, currentSession, sessions, workCountdownTime])
 
   useEffect(() => {
     if (playAudio) {
@@ -144,7 +145,7 @@ function TaskTimer(props) {
       }
       setCurrentSession(1);
     }
-  },[statsRest,statsCycles,longRestCountdownTime,restCountdownTime,sessions,currentSession]);
+  }, [statsRest, statsCycles, longRestCountdownTime, restCountdownTime, sessions, currentSession]);
 
   const saveStats = () => {
     if (user && user.uid && (statsCycles !== null) && (statsWork !== null) && (statsRest !== null)) {
@@ -177,8 +178,11 @@ function TaskTimer(props) {
       const tasksRef = ref(db, `sessions/${user.uid}`);
       set(tasksRef, newSession)
         .then(() => {
+          console.log('here uit comes')
           if (newSession.status === "Complete") {
-            navigate("/dashboard")
+            console.log('here uit comes')
+            // navigate("/dashboard")
+            window.location.href = "#confirmation"
           }
         })
         .catch((error) => {
@@ -186,6 +190,11 @@ function TaskTimer(props) {
         });
     } else {
       setGuestSession(newSession)
+      if (newSession.status === "Complete") {
+        console.log('here uit comes')
+        // navigate("/dashboard")
+        window.location.href = "#confirmation"
+      }
     }
   };
   const cancelSession = () => {
@@ -224,8 +233,8 @@ function TaskTimer(props) {
   return (
     <>
       <div className="Background">
-      <div className="MainCenterContainer">
-        {/*
+        <div className="MainCenterContainer">
+          {/*
         <div className="headd" style={{ display: "flex" }}>
           <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
             <span style={{ color: "#ffffff" }}>DE</span>THREADER
@@ -235,59 +244,70 @@ function TaskTimer(props) {
           </p>
         </div>
       */}
-        <div>
-          <span className="titleDE">[DE]</span>
-          <span className="titleTHREADER">THREADER</span>
-        </div>
+          <div id="confirmation" class="overlay">
+            <div class="custom-popup">
+              <h2>Nice Dethreading!</h2>
+              <a class="close" href="#">&times;</a>
+              <div class="content">
+                <div>
+                  <button onClick={() => navigate("/dashboard")} className="confirm-btn">Complete session and exit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span className="titleDE">[DE]</span>
+            <span className="titleTHREADER">THREADER</span>
+          </div>
 
-        <br></br>
+          <br></br>
 
-        <div className="SessionContainer">
+          <div className="SessionContainer">
 
-        <div className="SessionLeft">
-          <div className="wor-timer">
-            <h1>
-              {time && (statsCycles!==null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
-            </h1>
-            {/*
+            <div className="SessionLeft">
+              <div className="wor-timer">
+                <h1>
+                  {time && (statsCycles !== null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
+                </h1>
+                {/*
             <h1 className="tsk" style={{ color: "#A1CCA5" }}>TASKS</h1>
             */}
-          </div>
-          {showPopup && (
-            <Popup
-              handlePopupClose={handlePopupClose}
-              restCountdownTime={restCountdownTime}
-              longRestCountdownTime={longRestCountdownTime}
-              sessions={sessions}
-              showPopup={showPopup}
-              setShowPopup={setShowPopup}
-              currentSession={currentSession}
-              setCurrentSession={setCurrentSession}
-              workCountdownTime={workCountdownTime}
-              setWorkCountdownTime={setWorkCountdownTime}
-              audioRef={myAudio}
-            />
-          )}
-          <div className="tasks">
-            <h5>
-              <LabelTree user={user} fields={fields} setFields={updateFields} />
-            </h5>
-          </div>
-        </div>
-
-        <div className="SessionRight">
-          
-          {!image ?
-            <div>
-              <img className="SessionImg"src={DefaultIMG} alt="Default Image" />
+              </div>
+              {showPopup && (
+                <Popup
+                  handlePopupClose={handlePopupClose}
+                  restCountdownTime={restCountdownTime}
+                  longRestCountdownTime={longRestCountdownTime}
+                  sessions={sessions}
+                  showPopup={showPopup}
+                  setShowPopup={setShowPopup}
+                  currentSession={currentSession}
+                  setCurrentSession={setCurrentSession}
+                  workCountdownTime={workCountdownTime}
+                  setWorkCountdownTime={setWorkCountdownTime}
+                  audioRef={myAudio}
+                />
+              )}
+              <div className="tasks">
+                <h5>
+                  <LabelTree user={user} fields={fields} setFields={updateFields} />
+                </h5>
+              </div>
             </div>
-            : 
-            <div>
-              <img className="SessionImg" src={image} />
-            </div>}
 
-            <div className="play">
-              {/*
+            <div className="SessionRight">
+
+              {!image ?
+                <div>
+                  <img className="SessionImg" src={DefaultIMG} alt="Default Image" />
+                </div>
+                :
+                <div>
+                  <img className="SessionImg" src={image} />
+                </div>}
+
+              <div className="play">
+                {/*
               <button onClick={() => setPlayAudio(!playAudio)}>
                 {playAudio ? (
                   <span>
@@ -301,7 +321,7 @@ function TaskTimer(props) {
               </button>
               <audio src={relax} ref={myAudio}></audio>
                   */}
-              <div className="buttonContainer">
+                <div className="buttonContainer">
                   {/*
                 <span onClick={() => cancelSession()} className="textButton">
                 End and Delete Session
@@ -313,34 +333,39 @@ function TaskTimer(props) {
                 </span>
                   */}
 
-              <button onClick={() => setPlayAudio(!playAudio)}>
-                {playAudio ? (
-                  <span>
-                    <FontAwesomeIcon icon={faPause}/> Pause Audio
-                  </span>
-                  ) : (
-                  <span>
-                    <FontAwesomeIcon icon={faPlay} /> Play Audio 
-                  </span>
-                  )}
-              </button>
-              <audio src={lofi} ref={myAudio}></audio>
-
-                <button onClick={() => cancelSession()}>
-                  <FontAwesomeIcon icon={faX}/> End and Delete Session 
-                </button>
-
-                <button onClick={() => { navigate("/dashboard")}}>
-                  <FontAwesomeIcon icon={faX}/> Save and Exit Session 
-                </button>
-              
+                  <button onClick={() => setPlayAudio(!playAudio)}>
+                    {playAudio ? (
+                      <span>
+                        <FontAwesomeIcon icon={faPause} /> Pause Audio
+                      </span>
+                    ) : (
+                      <span>
+                        <FontAwesomeIcon icon={faPlay} /> Play Audio
+                      </span>
+                    )}
+                  </button>
+                  <audio src={lofi} ref={myAudio}></audio>
+                  {user && user.uid ?
+                    <>
+                      <button onClick={() => cancelSession()}>
+                        <FontAwesomeIcon icon={faX} /> End and Delete Session
+                      </button>
+                      <button onClick={() => { navigate("/dashboard") }}>
+                        <FontAwesomeIcon icon={faX} /> Save and Exit Session
+                      </button>
+                    </>
+                    :
+                    <button onClick={() =>  navigate("/dashboard")}>
+                      <FontAwesomeIcon icon={faX} /> End and Delete Session
+                    </button>
+                  }
+                </div>
               </div>
-            </div>
 
 
             </div>
-            </div>
-      </div>
+          </div>
+        </div>
       </div>
     </>
   );

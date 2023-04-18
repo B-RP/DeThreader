@@ -45,7 +45,7 @@ const Tree = ({
             </button>
           </div>
           <div className="deleteContainer">
-            <button onClick={() => handleDeleteField(node.id)}>
+            <button onClick={() => handleDeleteField(node.id,node)}>
               <FontAwesomeIcon
                 icon={faMinus}
                 style={{ color: "#ffffff" }}
