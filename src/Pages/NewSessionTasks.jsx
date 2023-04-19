@@ -146,6 +146,13 @@ const NewSessionTasks = (props) => {
           {/*<label style={{ marginLeft: "10px" }}>Add Task</label>*/}
           <div className="buttonContainer">
             <div className="buttonContainer-child">
+              
+              <button className="textButton" onClick={() => navigate("/dashboard")}>
+                Cancel
+              </button>
+  
+            </div>
+            <div className="buttonContainer-child">
               <button className="textButton" onClick={saveTasksData}>
                 Next
               </button>

@@ -345,11 +345,22 @@ function SetTimer(props) {
         </div>
       </div>
       <div className="buttonContainer">
-            <div className="buttonContainer-child">
-              <button className="textButton" onClick={saveTasksData}>
-                Next
-              </button>
+
+        {/*
+        < div className="buttonContainer-child">
+            <button className="textButton" onClick={() => navigate(-1)}>
+                Cancel
+            </button>
+        </div>
+              */}
+      
+          <div className="buttonContainer-child">
+            <button className="textButton" onClick={saveTasksData}>
+              Next
+            </button>
           </div>
+
+
           </div>
       </div>
       </div>

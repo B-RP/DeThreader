@@ -1,14 +1,16 @@
 import React, { Component }  from 'react';
+import { useNavigate } from "react-router-dom";
 import "./About.css"
 import "./Style.css"
 import devLeft from "../assets/1.png"
 import devMiddle from "../assets/2.png"
 import devRight from "../assets/3.png"
 const About = () => {
+  let navigate = useNavigate();
     return (
       <div className="Background">
         <div className="MainCenterContainer">
-        <div>
+        <div onClick={() => { navigate(-1); }} style={{cursor: "pointer"}}>
           <span className="titleDE">[DE]</span>
           <span className="titleTHREADER">THREADER</span>
         </div>
@@ -83,6 +85,10 @@ const About = () => {
             The last number determines how many work timers you have to complete before being awarded a longer rest. 
           </p>
           <p>music: Moonshine by Prigida</p>
+
+          <button className="textButton" onClick={() => navigate(-1)} >
+            Back
+          </button>
         </div>
         </div>
 

@@ -52,20 +52,28 @@ const Stats = () => {
   return (
     <>
       <div className="Background">
-        <div className="MainCenterContainer" style={{padding:"1% 5%",width:"30%"}}>
+        <div className="MainCenterContainer">
+
+        <div>
+            <span className="titleDE">[DE]</span>
+            <span className="titleTHREADER">THREADER</span>
+          </div>
+          <br></br>
+
           <div style={{display:"flex",justifyContent:"space-between"}}>
-            <span className="titleDE">Total work cycles</span>
-            <span className="titleTHREADER">{statsCycles}</span>
+            <span className="statsLeft">Total work cycles</span>
+            <span className="statsRight">{statsCycles}</span>
+          </div>
+          
+
+          <div style={{display:"flex",justifyContent:"space-between"}}>
+            <span className="statsLeft">Total work time  </span>
+            <span className="statsRight">{convertToMins(statsWork)}</span>
           </div>
 
           <div style={{display:"flex",justifyContent:"space-between"}}>
-            <span className="titleDE">Total work time</span>
-            <span className="titleTHREADER">{convertToMins(statsWork)}</span>
-          </div>
-
-          <div style={{display:"flex",justifyContent:"space-between"}}>
-            <span className="titleDE">Total rest time</span>
-            <span className="titleTHREADER">{convertToMins(statsRest)}</span>
+            <span className="statsLeft">Total rest time</span>
+            <span className="statsRight">{convertToMins(statsRest)}</span>
           </div>
           <div className="iconContainer" style={{justifyContent:"center"}}>
             {user ? (

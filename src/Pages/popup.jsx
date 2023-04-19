@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Timer from "./timer";
+import "./Style.css"
 
 function Popup({
   restCountdownTime,

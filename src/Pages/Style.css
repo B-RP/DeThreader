@@ -252,10 +252,12 @@ background-color: #101010;
 
 }
 
+/*
 .checkmark{
-  /* ...existing styles */
+  /* ...existing styles 
   display: grid;
   place-content: center;
+  background-color: red;
 }
 
 .checkmark::before {
@@ -270,6 +272,8 @@ background-color: #101010;
 .checkmark:checked::before {
   transform: scale(1);
 }
+
+*/
 
 /* TEXT BUTTONS */
 .textButton{
@@ -403,4 +407,23 @@ border: none;
 background-color: transparent;
 color: white;
 z-index: 10;
+}
+
+label{
+  overflow-wrap: break-word;
+}
+
+.statsLeft
+{
+  padding: 5px;
+  font-family: 'Playfair Display', serif;
+  color: white;
+  font-size: 20pt;
+}
+
+.statsRight
+{
+  font-family: 'Playfair Display', serif;
+  color: #A1CCA5;
+  font-size: 20pt;
 }

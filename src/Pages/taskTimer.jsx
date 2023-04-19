@@ -234,17 +234,9 @@ function TaskTimer(props) {
     <>
       <div className="Background">
         <div className="MainCenterContainer">
-          {/*
-        <div className="headd" style={{ display: "flex" }}>
-          <p onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
-            <span style={{ color: "#ffffff" }}>DE</span>THREADER
-          </p>
-          <p onClick={() => cancelSession()} style={{ cursor: "pointer" }}>
-            Cancel session
-          </p>
-        </div>
-      */}
+          
           <div id="confirmation" class="overlay">
+            {/*Message shown after completing all tasks */}
             <div class="custom-popup">
               <h2>Nice Dethreading!</h2>
               <a class="close" href="#">&times;</a>
@@ -254,7 +246,9 @@ function TaskTimer(props) {
                 </div>
               </div>
             </div>
+
           </div>
+          {/*Site title */}
           <div>
             <span className="titleDE">[DE]</span>
             <span className="titleTHREADER">THREADER</span>
@@ -269,9 +263,7 @@ function TaskTimer(props) {
                 <h1>
                   {time && (statsCycles !== null) && <Timer startTime={time} onComplete={onComplete} startTimer={!showPopup} />}
                 </h1>
-                {/*
-            <h1 className="tsk" style={{ color: "#A1CCA5" }}>TASKS</h1>
-            */}
+                
               </div>
               {showPopup && (
                 <Popup

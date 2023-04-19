@@ -100,7 +100,7 @@ const SignUp = () => {
     <div className="Background">
       <div className="MainCenterContainer">
         <>
-          <div>
+          <div onClick={() => { navigate("/"); }} style={{cursor: "pointer"}}>
             <span className="titleDE">[DE]</span>
             <span className="titleTHREADER">THREADER</span>
           </div>

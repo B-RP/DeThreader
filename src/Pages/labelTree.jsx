@@ -64,7 +64,7 @@ function LabelTree({ fields,setFields }) {
           <div className="checkboxContainer">
             <input
               type="checkbox"
-              className="checkmark"
+              className="checkbox"
               checked={node.checked} // update this
               onChange={(e) => {
                 const updatedTree = handleCheckboxChange(node.id, node, e.target.checked)
@@ -72,7 +72,7 @@ function LabelTree({ fields,setFields }) {
               }}
             />
           </div>
-          <div className="label-field" style={{ color: "#FFFFFF" }}>
+          <div className="label-field" style={{ color: "#FFFFFF"}}>
             <label
               type="text"
               className={`texts ${node.checked ? "checked" : ""}`}

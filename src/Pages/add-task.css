@@ -34,7 +34,7 @@ ul button {
 }
 
 .checked {
-  color: #0dee0d;
+  color: #A1CCA5;
   text-decoration: line-through;
 }
 
@@ -55,6 +55,18 @@ ul button {
     border: none;
 }
 
+label{
+    overflow-wrap: break-word;
+    max-width: 250px;
+}
+
 .texts:focus {
     border: none;
+}
+
+input[type="checkbox"] {
+    accent-color:  #A1CCA5;
+    width: 20px;
+    height: 20px;
+   
 }
