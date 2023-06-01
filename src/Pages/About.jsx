@@ -22,7 +22,7 @@ const About = () => {
             <p>Fate could be in your hands</p>
 
             <p> As college students ourselves, we know how quickly tasks can pile up and become overwhelming. That's why we set out to 
-              find a solution. Our goal at Dethreader is to help ease the tension and stress by breaking down big goals 
+              find a solution. Our goal at DeThreader is to help ease the tension and stress by breaking down big goals 
               into smaller, more manageable steps. We also help you stay focused by 
               using a Pomodoro-inspired technique, which allows you to customize work and rest intervals based on your preferences.
             </p>

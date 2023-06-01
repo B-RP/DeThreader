@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
-import { Sessions } from "./Helper/Context";
+import React, { useEffect, useState } from "react";
 import "./Style.css"
-
-const db = getDatabase(); //Initialize database
 
 // Fetch the tasks associated with logged in user from database
 // Define a function that fetches tasks from the database and updates the state
@@ -17,42 +13,68 @@ const createDataTree = dataset => {
   });
   return dataTree;
 };
-function LabelTree({ fields,setFields }) {
-  let renderData = createDataTree(fields)
 
-  function getBottomUp(node, path) {
-    let uncheckedChilds = !!node.children.filter(n => !n.checked).length;
-    if (node.children.length == 0) {
-      return node
-    }
-    return {
-      ...node,
-      checked: !uncheckedChilds,
-      children: node.children.map(v => getBottomUp(v, path))
-    }
+function getBottomUp(node) {
+  if (node.children.length === 0) {
+    return node;
   }
-  for (let i = 0; i < 5; i++) {
-    renderData = renderData.map(n => getBottomUp(n))
-  }
-  const handleCheckboxChange = (fieldId, node, checked) => {
-    let descendants = [fieldId]
-    function recurseAndAdd(node) {
-      descendants.push(node.id);
-      var children = node.children;
-      for (let i = 0; i < children.length; i++) {
-        recurseAndAdd(children[i]);
-      }
-    }
-    recurseAndAdd(node)
-    const newFields = fields.map((field) => {
-      if (descendants.includes(field.id)) {
-        return { ...field, checked }
-      } else {
-        return field
-      }
-    });
-    return newFields
+
+  const children = node.children.map(v => getBottomUp(v));
+  const uncheckedChilds = children.filter(n => !n.checked).length > 0;
+  return {
+    ...node,
+    checked: !uncheckedChilds,
+    children
   };
+}
+
+function LabelTree({ fields,setFields }) {
+  const [renderData, setRenderData] = useState([]);
+  useEffect(() => {
+    let newRenderData = createDataTree(fields);
+    newRenderData = newRenderData.map(n => getBottomUp(n));
+    setRenderData(newRenderData);
+  }, [fields, setFields]);
+
+  const handleCheckboxChange = (fieldId, node, checked) => {
+    let descendants = [fieldId];
+    let ancestors = [];
+
+    // Recursively add all descendants
+    function recurseAndAddDescendants(node) {
+        descendants.push(node.id);
+        var children = node.children;
+        for (let i = 0; i < children.length; i++) {
+            recurseAndAddDescendants(children[i]);
+        }
+    }
+
+    // Recursively add all ancestors
+    function recurseAndAddAncestors(fields, currentId) {
+        fields.forEach(field => {
+            if (field.id === currentId && field.parentId !== null) {
+                ancestors.push(field.parentId);
+                recurseAndAddAncestors(fields, field.parentId);
+            }
+        });
+    }
+
+    recurseAndAddDescendants(node);
+    recurseAndAddAncestors(fields, fieldId);
+
+    const newFields = fields.map((field) => {
+        if (descendants.includes(field.id)) {
+            return { ...field, checked };
+        } else if (ancestors.includes(field.id)) {
+            const childChecked = fields.some(f => f.parentId === field.id && f.checked);
+            return { ...field, checked: childChecked || checked };
+        } else {
+            return field;
+        }
+    });
+    return newFields;
+};
+
 
   const renderTree = (fields, depth = 0) => {
     if (!fields) {
