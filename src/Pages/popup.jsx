@@ -31,6 +31,7 @@ function Popup({
       audioRef.current.play();
     }
   }, [showPopup]);
+  
   console.log("current popup session",currentSession,longRestCountdownTime,restCountdownTime)
   return (
     <div className={`popup ${showPopup ? "open" : ""}`}>

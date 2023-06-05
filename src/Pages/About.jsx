@@ -1,10 +1,11 @@
-import React, { Component }  from 'react';
+import React  from 'react';
 import { useNavigate } from "react-router-dom";
 import "./About.css"
 import "./Style.css"
 import devLeft from "../assets/1.png"
 import devMiddle from "../assets/2.png"
 import devRight from "../assets/3.png"
+
 const About = () => {
   let navigate = useNavigate();
     return (
@@ -22,7 +23,7 @@ const About = () => {
             <p>Fate could be in your hands</p>
 
             <p> As college students ourselves, we know how quickly tasks can pile up and become overwhelming. That's why we set out to 
-              find a solution. Our goal at DeThreader is to help ease the tension and stress by breaking down big goals 
+              find a solution. Our goal at Dethreader is to help ease the tension and stress by breaking down big goals 
               into smaller, more manageable steps. We also help you stay focused by 
               using a Pomodoro-inspired technique, which allows you to customize work and rest intervals based on your preferences.
             </p>
@@ -43,20 +44,20 @@ const About = () => {
             <div className="DevProfile">
               <p>Betty</p>
               
-              <img src={devLeft}/>
+              <img src={devLeft} alt=""/>
               <p>Betty is the front-end developer. She is resposible for creating the user interface and the visual design of our website.</p>
             </div>
 
             <div className="DevProfile">
               <p>Lis</p>
               
-              <img src={devMiddle}/>
+              <img src={devMiddle} alt=""/>
               <p>Lis is the back-end developer. She is responsible for the behind the scenes logic of our website and works as a bridge between the front-end and the database.</p>
             </div>
 
             <div className="DevProfile">
               <p>Dina</p>
-              <img src={devRight}/>
+              <img src={devRight} alt=""/>
               <p>Dina is the database developer. She is responsible for designing and maintaining the database that keeps your information stored.</p>
             </div>
           </div>

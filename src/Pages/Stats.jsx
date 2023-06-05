@@ -1,7 +1,7 @@
-import React, { Component, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Style.css";
-import { getDatabase, ref, set, onValue, remove } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 const db = getDatabase(); //Initialize database

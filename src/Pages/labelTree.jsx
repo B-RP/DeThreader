@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./Style.css"
+import "./Style.css";
+import { decryptTasks } from "../utils/taskEncryption";
 
 // Fetch the tasks associated with logged in user from database
 // Define a function that fetches tasks from the database and updates the state
@@ -19,21 +20,23 @@ function getBottomUp(node) {
     return node;
   }
 
-  const children = node.children.map(v => getBottomUp(v));
-  const uncheckedChilds = children.filter(n => !n.checked).length > 0;
+  const children = node.children.map((v) => getBottomUp(v));
+  const uncheckedChilds = children.filter((n) => !n.checked).length > 0;
   return {
     ...node,
     checked: !uncheckedChilds,
-    children
+    children,
   };
 }
 
-function LabelTree({ fields,setFields }) {
-  const [renderData, setRenderData] = useState([]);
+function LabelTree({ fields, setFields }) {
+  const [dataTree, setDataTree] = useState([]);
+
   useEffect(() => {
-    let newRenderData = createDataTree(fields);
-    newRenderData = newRenderData.map(n => getBottomUp(n));
-    setRenderData(newRenderData);
+    const decryptedTasks = decryptTasks(fields);
+    let newRenderData = createDataTree(decryptedTasks);
+    newRenderData = newRenderData.map((n) => getBottomUp(n));
+    setDataTree(newRenderData);
   }, [fields, setFields]);
 
   const handleCheckboxChange = (fieldId, node, checked) => {
@@ -42,39 +45,40 @@ function LabelTree({ fields,setFields }) {
 
     // Recursively add all descendants
     function recurseAndAddDescendants(node) {
-        descendants.push(node.id);
-        var children = node.children;
-        for (let i = 0; i < children.length; i++) {
-            recurseAndAddDescendants(children[i]);
-        }
+      descendants.push(node.id);
+      var children = node.children;
+      for (let i = 0; i < children.length; i++) {
+        recurseAndAddDescendants(children[i]);
+      }
     }
 
     // Recursively add all ancestors
     function recurseAndAddAncestors(fields, currentId) {
-        fields.forEach(field => {
-            if (field.id === currentId && field.parentId !== null) {
-                ancestors.push(field.parentId);
-                recurseAndAddAncestors(fields, field.parentId);
-            }
-        });
+      fields.forEach((field) => {
+        if (field.id === currentId && field.parentId !== null) {
+          ancestors.push(field.parentId);
+          recurseAndAddAncestors(fields, field.parentId);
+        }
+      });
     }
 
     recurseAndAddDescendants(node);
     recurseAndAddAncestors(fields, fieldId);
 
     const newFields = fields.map((field) => {
-        if (descendants.includes(field.id)) {
-            return { ...field, checked };
-        } else if (ancestors.includes(field.id)) {
-            const childChecked = fields.some(f => f.parentId === field.id && f.checked);
-            return { ...field, checked: childChecked || checked };
-        } else {
-            return field;
-        }
+      if (descendants.includes(field.id)) {
+        return { ...field, checked };
+      } else if (ancestors.includes(field.id)) {
+        const childChecked = fields.some(
+          (f) => f.parentId === field.id && f.checked
+        );
+        return { ...field, checked: childChecked || checked };
+      } else {
+        return field;
+      }
     });
     return newFields;
-};
-
+  };
 
   const renderTree = (fields, depth = 0) => {
     if (!fields) {
@@ -89,16 +93,22 @@ function LabelTree({ fields,setFields }) {
               className="checkbox"
               checked={node.checked} // update this
               onChange={(e) => {
-                const updatedTree = handleCheckboxChange(node.id, node, e.target.checked)
+                const updatedTree = handleCheckboxChange(
+                  node.id,
+                  node,
+                  e.target.checked
+                );
                 setFields(updatedTree);
               }}
             />
           </div>
-          <div className="label-field" style={{ color: "#FFFFFF"}}>
+          <div className="label-field" style={{ color: "#FFFFFF" }}>
             <label
               type="text"
               className={`texts ${node.checked ? "checked" : ""}`}
-            >{node.label}</label>
+            >
+              {node.label}
+            </label>
           </div>
         </div>
         {/* {node.children && node.children.length > 0 && ( */}
@@ -111,8 +121,9 @@ function LabelTree({ fields,setFields }) {
   };
   return (
     <>
-      <div className="treeContainer">{renderTree(renderData)}</div>
-    </>);
+      <div className="treeContainer">{renderTree(dataTree)}</div>
+    </>
+  );
 }
 
 export default LabelTree;

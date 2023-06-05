@@ -1,24 +1,22 @@
 import React, { useState, useContext } from "react";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { UserName } from './Helper/Context';
-import { LoggedIn } from './Helper/Context';
 import { useNavigate } from 'react-router-dom';
-import { getDatabase, ref, set } from "firebase/database";
 
-const TextButton = (props) => {
-  return(
-  <button 
-    onClick={props.action} 
-    className="textButton">
-    {props.text}
+// const TextButton = (props) => {
+//   return(
+//   <button 
+//     onClick={props.action} 
+//     className="textButton">
+//     {props.text}
   
-  </button>
-  )
-}
+//   </button>
+//   )
+// }
 
 const LogIn = (props) => {
-  const {isLoggedIn, setIsLoggedIn} = useContext(LoggedIn); // determine if the user is logged in or not
-  const {userName, setUserName} = useContext(UserName);
+  // const {isLoggedIn, setIsLoggedIn} = useContext(LoggedIn); // determine if the user is logged in or not
+  const { setUserName} = useContext(UserName);
   const navigate = useNavigate();
 
  /**

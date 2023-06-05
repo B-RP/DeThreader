@@ -1,25 +1,18 @@
-import { initializeApp } from 'firebase/app';
-// import { getAuth } from 'firebase/auth';
-// import { getDatabase } from 'firebase/database';
+import { env } from './env'
+import { initializeApp } from 'firebase/app'
 
+console.log('env', env)
 export const firebaseConfig = {
-    apiKey: "AIzaSyCqFTVDX6h2fMqSsvjIRdAqZfkrMqDEDAU",
-    authDomain: "threader-app-8163c.firebaseapp.com",
-    databaseURL: "https://threader-app-8163c-default-rtdb.firebaseio.com",
-    projectId: "threader-app-8163c",
-    storageBucket: "threader-app-8163c.appspot.com",
-    messagingSenderId: "1077400049279",
-    appId: "1:1077400049279:web:af5dee3ccd6b064e3a914a",
-    measurementId: "G-6QQ4CMXDPF"
-};
+  apiKey: env.DETHREADER_FIREBASE_API_KEY,
+  authDomain: env.DETHREADER_FIREBASE_AUTH_DOMAIN,
+  databaseURL: env.DETHREADER_FIREBASE_DATABASE_URL,
+  projectId: env.DETHREADER_FIREBASE_PROJECT_ID,
+  storageBucket: env.DETHREADER_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: env.DETHREADER_FIREBASE_MESSAGING_SENDER_ID,
+  appId: env.DETHREADER_FIREBASE_APP_ID,
+  measurementId: env.DETHREADER_FIREBASE_MEASUREMENT_ID
+}
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig)
 
-// Initialize Firebase authentication
-// const auth = getAuth();
-
-// Initialize Firebase Realtime Database
-// const db = getDatabase(app);
-
-
-export default app;
+export default app
