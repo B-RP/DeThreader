@@ -2,7 +2,7 @@
 <h3>Simple GUI to help you stay focused.</h3>
 <img src="https://github.com/user-attachments/assets/6fa12dcf-7e20-42d8-bb27-9b24aab22db6">
 
-<h3>Create multi-level to-do lists to helo you break down big tasks</h3>
+<h3>Create multi-level to-do lists to help you break down big tasks</h3>
 <img src="https://github.com/user-attachments/assets/56cf94d6-dc80-414c-8a7d-274e41b90759">
 
 <h3>Customize your pomodoro intervals, play some background music, and get to work</h3>
